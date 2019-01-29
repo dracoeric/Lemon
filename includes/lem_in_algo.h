@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:30:26 by erli              #+#    #+#             */
-/*   Updated: 2019/01/28 18:11:43 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/29 15:01:20 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,23 @@ typedef struct	s_room
 	int			id;
 	int			x;
 	int			y;
-	int			*neighboor;
-	char		properties;
-	int			occupant;
 }				t_room;
+
+typedef struct	s_lem_in_data
+{
+	int			n_ant;
+	int			start;
+	int			end;
+	s_room		*anthill;
+	char		**matrix;
+}
+
 
 typedef	struct	s_path
 {
 	int		path_id;
 	int		*path;
-	int		mother_id;
+	int		steps;
 }				t_path;
 
 #endif
