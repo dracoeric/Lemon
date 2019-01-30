@@ -1,35 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_algo.c                                        :+:      :+:    :+:   */
+/*   lem_in_send_ants.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 17:59:41 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 17:52:12 by erli             ###   ########.fr       */
+/*   Created: 2019/01/30 14:13:51 by erli              #+#    #+#             */
+/*   Updated: 2019/01/30 17:50:18 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in_algo.h"
 
-static	void	start(t_list_room *list_room, int count, int options)
+void		lem_in_send_ants(t_lem_in_data *data, int *steps, int n_paths)
 {
-	t_room		anthill[count];
-
-	fill_anthill(anthill, count, options);
-	lem_in_algo(anthill, count, options);
-}
-
-int				main(int argc, char **argv)
-{
-	t_list_room	*list_room;
-	int			count;
-	int			options;
-
-	options = 0;
-	manage_options(argc, argv, &options);
-	count = 0;
-	list_room = lem_in_parse(&count);
-	start(list_room, count, options);
-	return (0);
 }

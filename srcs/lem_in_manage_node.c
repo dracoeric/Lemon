@@ -6,14 +6,14 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 09:56:17 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 11:54:04 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/30 17:50:50 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in_algo.h"
 
 static	int		lem_in_do_fork(t_lem_in_data *data, t_path **bubble,
-							   int *n_path, int index)
+						int *n_path, int index)
 {
 	int		next_id;
 	int		room;
@@ -43,9 +43,8 @@ int				lem_in_manage_node(t_lem_in_data *data, t_path **bubble,
 	next_id = lem_in_next_room(data, room, &index);
 	if (next_id != -1)
 	{
-		lem_in_add_flow(data, room, next_id);
 		((*bubble)->path)[(*bubble)->steps] = next_id;
-		(*bubble)->steps += 1;		
+		(*bubble)->steps += 1;
 		if (next_id == data->end)
 			return (1);
 		return (lem_in_do_fork(data, bubble, n_path, *index));

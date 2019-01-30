@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:44:10 by erli              #+#    #+#             */
-/*   Updated: 2019/01/29 18:18:35 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/30 13:13:39 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
 		elem->steps = dup->steps;
 		lem_in_dup_path(elem->path, dup->path, dup->steps);
 	}
-	else
-		(elem->path)[0] = data->start;
 	*n_path += 1;
 	(elem->path)[elem->steps - 1] = room_id;
 	return (elem);

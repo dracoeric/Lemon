@@ -6,13 +6,27 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:28:32 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 11:00:40 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/30 13:19:06 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in_algo.h"
 
-int				lem_in_next_room(t_lem_in_data *data, int n_room, int *index)
+static	int		lem_in_is_previous(t_lem_in_data *data, t_path *path,
+						int room_candidat)
+{
+	if (path->steps == 1 && room_candidat == data->start)
+		return (1);
+	if (path->steps < 2)
+		return (0);
+	if ((path->path)[path->steps - 2] == room_candidat)
+		return (1);
+	else
+		return (0);
+}
+
+int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
+						int *index)
 {
 	if (*index >= data->n_room)
 		return (-1);
@@ -20,8 +34,9 @@ int				lem_in_next_room(t_lem_in_data *data, int n_room, int *index)
 	{
 		while (*index < data->n_room)
 		{
-			if (LI_CONNECTED(data, n_room, *index)
-				&& !(LI_FLOW_CAPPED(data, n_room, *index)))
+			if (!(lem_in_is_previous(data, path, *index))
+				&& LI_CONNECTED(data, n_room, *index)
+				&& !(lem_in_flow_capped(data, n_room)))
 			{
 				*index += 1;
 				return (*index - 1);

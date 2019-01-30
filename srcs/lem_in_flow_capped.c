@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_algo.c                                        :+:      :+:    :+:   */
+/*   lem_in_flow_capped.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 17:59:41 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 17:52:12 by erli             ###   ########.fr       */
+/*   Created: 2019/01/30 13:20:32 by erli              #+#    #+#             */
+/*   Updated: 2019/01/30 18:21:53 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in_algo.h"
+#include "libft.h"
 
-static	void	start(t_list_room *list_room, int count, int options)
+int		lem_in_flow_capped(t_lem_in_data *data, int room)
 {
-	t_room		anthill[count];
+	int i;
+	int	total;
 
-	fill_anthill(anthill, count, options);
-	lem_in_algo(anthill, count, options);
-}
-
-int				main(int argc, char **argv)
-{
-	t_list_room	*list_room;
-	int			count;
-	int			options;
-
-	options = 0;
-	manage_options(argc, argv, &options);
-	count = 0;
-	list_room = lem_in_parse(&count);
-	start(list_room, count, options);
+	i = 0;
+	total = 0;
+	while (i < data->n_room)
+	{
+		if (LI_FLOW(data, room, i))
+			total += (LI_POS_FLOW(data, room, i) ? 1 : 0);
+		i++;
+	}
+	if (total == 1)
+		return (1);
 	return (0);
 }
