@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:19:10 by erli              #+#    #+#             */
-/*   Updated: 2019/01/29 18:47:50 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/30 12:07:54 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static	void		lem_in_init_paths(t_lem_in_data *data, t_path **list,
+static	t_path	*lem_in_manage_found(t_lem_in_data *data, t_path **list,
+						int	found)
+{
+	if (found == -2)
+	{
+		lem_in_del_list(list);
+		return (NULL);
+	}
+	else if (found == 1)
+		return (lem_in_trim_path(list));
+}
+
+static	int		lem_in_init_paths(t_lem_in_data *data, t_path **list,
 						int *n_path)
 {
 	t_path	*elem;
@@ -22,48 +34,42 @@ static	void		lem_in_init_paths(t_lem_in_data *data, t_path **list,
 	int		index;
 
 	index = 0;
-	next = lem_in_next_fork(data, data->start, &index);
+	next = lem_in_next_room(data, data->start, &index);
 	while (next != -1)
 	{
 		elem = lem_in_create_path(data, next, n_path, NULL);
 		if (elem == 0)
-		{
-			lem_in_del_list(list);
-			exit (ft_msg_int(2, "Abort, failed malloc in lem_in_init.\n", 0));
-		}
+			return (-2);
 		lem_in_path_add(list, elem);
-		next = lem_in_next_fork(data, data->start, &index);
+		if (next == data->end)
+			return (1);
+		next = lem_in_next_room(data, data->start, &index);
 	}
+	return (0);
 }
 
-t_path				*lem_in_bfs_path(s_lem_in_data *data)
+t_path				*lem_in_bfs_path(t_lem_in_data *data)
 {
 	t_path	*list;
 	t_path	*bubble;
 	int		n_path;
 	int		found;
-	int		index;
+	int		n_steps;
 
 	list = 0;
 	n_path = 0;
-	found = 0;
-	lem_in_init_paths(data, list, data->start, &n_path);
+	found = lem_in_init_paths(data, list, data->start, &n_path);
+	n_steps = 1;
 	while (found == 0)
 	{
 		bubble = list;
-		while (bubble != 0)
+		while (found == 0 && bubble != 0)
 		{
-/*	ajouter une premier noeud
- *	si fork, ajouter des elem dup a la list
- *	passer au path suivant etc
- */
-			bubble = bubble->next;
+			if (boubble->steps > n_steps)
+				bubble = bubble->next;
+			else
+				found = lem_in_manage_node(data, &bubble, &n_path);
 		}
 	}
-
-
-
-
-
-
+	return (lem_in_manage_found(&list, found));
 }

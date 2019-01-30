@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:58 by erli              #+#    #+#             */
-/*   Updated: 2019/01/29 17:14:26 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/30 09:18:00 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void			lem_in_trim_path(t_path **list)
 	while ((*list)->next != 0)
 	{
 		next = (*list)->next;
-		if (next->steps < (*list)->steps)
+		if ((*list)->state != 1 || (next->steps < (*list)->steps
+			&& next->state == 1))
 			lem_in_del_first(list);
 		else
 			lem_in_del_second(list);
