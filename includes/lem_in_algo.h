@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:30:26 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 16:34:22 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/31 18:24:12 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_lem_in_data
 	char		**matrix_old
 	int			*limits;
 	char		*buf;
+	int			buf_cursor;
 
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -81,5 +82,8 @@ void			lem_in_test_opti(t_lem_in_data *data, int n_paths);
 void			lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 					t_mapcoord b);
 void			lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode);
-void			lem_in_print(t_lem_in_data *data, int ant_id, int room);
+void			lem_in_magic_paths(t_lem_in_data *data, char **matrix,
+					t_path *paths, int max_paths);
+void			lem_in_print(t_lem_in_data *data, int ant_id, int room,
+					int end_of_line);
 #endif
