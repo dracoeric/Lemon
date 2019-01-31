@@ -6,54 +6,70 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 19:00:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/01/31 15:01:27 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in_algo.h"
-#include "mlxadd.h"
+#include "libft.h"
 
-static	void	lem_in_get_steps(t_lem_in_data *data, char **matrix,
-						int *tab, int n_paths)
+static	void	lem_in_set_map_coord(t_mapcoord *map, int x, int y, int z)
 {
-	int	index;
-	int	steps;
-	int	room;
-	int	i;
-	int	i_tab;
-
-	index = 0;
-	i_tab = 0;
-	while (i_tab < n_paths && index < data->n_room)
-	{
-		while (!(((matrix[start][index] >> 1) & 3) == 3))
-			index++;
-		room = index;
-		steps = 1;
-		while (room != data->end)
-		{
-			i = 0;
-			while (!(((matrix[room][i] >> 1) & 3) == 3))
-				i++;
-			steps++;
-			room = i;
-		}
-		tab[i_tab] = steps;
-		i_tab++;
-	}
+	map->mx = x;
+	map->my = y;
+	map->mz = z;
 }
 
 static	int		lem_in_eval_steps(t_lem_in_data *data, int *tab, int n_paths)
 {
-	double	a;
-	double	b;
-	int		delta;
-	int		n_steps;
+	double		a;
+	double		b;
+	int			i;
+	int			limit;
 
 	a = 1.0;
-	b = tab[0] - 1;
-	delta = tab[1] - tab[0];
-	if (data->n_ant < delta
+	b = (double)(tab[0] - 1);
+	i = 1;
+	if (n_paths == 1)
+		return (data->ant + tab[0] - 1);
+	limit = 1 + tab[1] - tab[0];
+	while (i + 1 < n_path && data->n_ant > limit)
+	{
+		b = limit / (a * (a + 1.0)) + b;
+		a += 1.0;
+		limit += (tab[i + 1] - tab[i]) * a;
+		i++;
+	}
+	return ((int)(data->n_ant / a + b));
+}
+
+static	int		lem_in_draw_graph_lines(t_lem_in_data *data, int *tab,
+					int n_paths)
+{
+	double		a;
+	double		b;
+	int			i;
+	t_mapcoord	map[2];
+
+	lem_in_set_map_coord(map, 1, tab[0], 0);
+	a = 1.0;
+	b = (double)(tab[0] - 1);
+	i = 1;
+	map[1].mx = (n_paths == 1 ? 0 : 1 + tab[1] - tab[0]);
+	while (i + 1 < n_path && data->n_ant > map[1].mx)
+	{
+		map[1].my = tab[i];
+		lem_in_draw_graph(data, map[0], map[1]);
+		lem_in_set_map_coord(map, map[1].mx, map[1].my, i);
+		b = limit / (a * (a + 1.0)) + b;
+		a += 1.0;
+		map[1].mx += (tab[i + 1] - tab[i]) * a;
+		i++;
+	}
+	lem_in_set_map_coord(map + 1, data->n_ant,
+		(int)(data->n_ant / a + b), i);
+	lem_in_draw_graph(data, map[0], map[1]);
+	return (map[1].my);
 }
 
 int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
@@ -64,8 +80,17 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 
 	lem_in_get_steps(data, data->matrix_old, steps_old, n_paths - 1);
 	lem_in_get_steps(data, data->matrix, steps_new, n_path);
+	ft_merge_sort_tab(steps_old, n_paths - 1);
+	ft_merge_sort_tab(steps_new, n_paths);
 	n_steps = lem_in_eval_steps(data, steps_old, n_paths - 1);
-	if (n_steps < lem_in_eval_steps(data, steps_new, n_paths))
+	if (n_paths == 2)
+		data->max_steps = n_steps;
+	if (LI_OPT_GRAPH(data->options))
+	{
+		lem_in_eval_steps(data, steps_old, n_paths - 1);
+		lem_in_eval_steps(data, steps_new, n_paths);
+	}
+	else if (n_steps < n_steps_new)
 		return (1);
 	return (0);
 }
