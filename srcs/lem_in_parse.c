@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 12:49:45 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 13:41:38 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,25 @@ int				lem_in_parse_line(char *line, t_lem_in_data *data, t_file **file, t_parse
 	return (1);
 }
 
+void			lem_in_delete_last_entry_file(t_file **file, char *line)
+{
+	t_file	*tmp;
+	int		len;
+	int		i;
+
+	len = ft_strlen(line);
+	tmp = *file;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	i = 0;
+	while (i <= len + 1)
+	{
+		tmp->buff[tmp->size - i] = '\0';
+		i++;
+	}
+	tmp->size = tmp->size - i + 1;
+}
+	
 
 int				lem_in_read(t_lem_in_data *data)
 {
@@ -118,12 +137,12 @@ int				lem_in_read(t_lem_in_data *data)
 	while (tr2 == 1 && (tr = get_next_line(0, &line)) > 0)
 	{
 		tr2 = lem_in_parse_line(line, data, &file, &rooms);
-		//	if (tr2 < 0)
-		//		lem_in_delete_last_entry_file(&file, line);
+		if (tr2 < 0)
+			lem_in_delete_last_entry_file(&file, line);
 		free(line);
 		line = NULL;
 	}
-
+	lem_in_free_rooms(&rooms);
 	if (tr < 0)
 		return (ft_msg_int(2, "Abort, failed gnl", -1));
 	return (1);
@@ -134,7 +153,7 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 	t_lem_in_data	*data;
 	int				tr;
 
-	tr = 0;
+	tr = 1;
 	if (!(data = (t_lem_in_data *)malloc(sizeof(t_lem_in_data) * 1)))
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	data->n_ant = 0;

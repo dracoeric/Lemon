@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:37:07 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:48:46 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,6 @@ typedef	struct	s_parse
 	int				state;
 	struct	s_parse	*next;
 }				t_parse;
-
-typedef struct	s_room
-{
-	char		*name;
-	int			id;
-	int			x;
-	int			y;
-}				t_room;
 
 typedef struct	s_lem_in_data
 {
@@ -118,4 +110,5 @@ int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data, t_parse **rooms, 
 int				lem_in_atoi(char *str, int *d);
 int				lem_in_parse_get_links(char *line, t_lem_in_data *data);
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
+void			lem_in_free_rooms(t_parse **rooms);
 #endif
