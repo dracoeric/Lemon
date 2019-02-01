@@ -6,15 +6,16 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:39:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/01/30 18:56:29 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/01/31 18:09:23 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_parse.h"
+#include "lem_in_parseur.h"
+#include <stdio.h>
 
-void	lem_in_fill_file_cpynew_cpy(t_file **new, char *line, int len)
+void	lem_in_fill_file_cpynew_cpy(t_file **new, char *line, int len, char *newbuff)
 {
-	newbuff = ft_strcpy(newbuff, line);
+	ft_strcpy(newbuff, line);
 	(*new)->buff = newbuff;
 	(*new)->buff[len] = '\n';
 	(*new)->size = len + 1;
@@ -33,17 +34,9 @@ int		lem_in_fill_file_create_new(char *line, t_file *tmp, t_file **new, int len)
 	}
 	ft_bzero(newbuff, B_SIZE + 1);
 	(*new)->next = NULL;
-	if (tmp == NULL)
-		lem_in_fill_file_cpynew_cpy(new, line, len, newbuff);
-	else
-	{
-		tmp->buff = ft_strncpy(tmp->buff + tmp->size, line, B_SIZE - tmp->size);
-		newbuff = ft_strcpy(newbuff, line + B_SIZE - tmp->size);
-		(*new)->buff = newbuff;
-		(*new)->size = len - (B_SIZE - tmp->size);
-		tmp->size = tmp->size + B_SIZE - tmp->size;
+	lem_in_fill_file_cpynew_cpy(new, line, len, newbuff);
+	if (tmp != NULL)
 		tmp->next = *new;
-	}
 	return (1);
 }
 
@@ -67,9 +60,9 @@ int		lem_in_fill_file(char *line, t_file **file)
 	}
 	else
 	{
-		tmp->buff = ft_strcpy(tmp->buff + buff->size, line);
+		ft_strcpy(tmp->buff + tmp->size, line);
 		tmp->buff[tmp->size + len] = '\n';
-		tmp->size = len + 1;
+		tmp->size = tmp->size + len + 1;
 	}
 	return (1);
 }
