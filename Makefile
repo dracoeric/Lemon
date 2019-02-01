@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/01 11:00:24 by erli             ###   ########.fr        #
+#    Updated: 2019/02/01 11:17:55 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -22,7 +22,9 @@ SRCS		=		main.c				lem_in_add_flow.c		lem_in_algo.c		\
 					lem_in_next_room.c	lem_in_parse.c			lem_in_path_add.c	\
 					lem_in_parse_get_links.c			lem_in_get_rooms.c			\
 					lem_in_print.c		lem_in_print_data.c		lem_in_rm_path.c	\
-					lem_in_send_ants.c	lem_in_test_opti.c		lem_in_trim_path.c	
+					lem_in_send_ants.c	lem_in_test_opti.c		lem_in_trim_path.c	\
+																					\
+					mlx_line_put.c
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
@@ -42,7 +44,7 @@ LIBMLX		=		minilibx_macos/libmlx.a
 
 all			:		$(NAME)
 
-$(NAME1)	:		$(OBJS) $(LIB) $(LIBMLX) includes/lem_in.h
+$(NAME)		:		$(OBJS) $(LIB) $(LIBMLX) includes/lem_in.h
 					$(CC) $(CFLAG) $(INCL) $(OBJS) $(LIB) $(LIBMLX) $(FRAMEWORK) \
 					-o $(NAME)
 
@@ -56,18 +58,11 @@ $(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c includes/push_swap.h
 					@mkdir -p $(OBJSDIR)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
-val1		:		$(OBJS1) $(LIB) $(LIBMLX) includes/push_swap.h
-					$(CC) -g $(CFLAG) $(INCL) $(OBJS1) $(LIB) $(LIBMLX) $(FRAMEWORK) \
-					-o $(NAME1)
-
-val2		:		$(OBJS2) $(LIB) includes/push_swap.h
-					$(CC) -g $(CFLAG) $(OBJS2) $(LIB) -o $(NAME2)
-
 clean		:
-					$(RM) $(OBJS1) $(OBJS2)
+					$(RM) $(OBJS)
 
 fclean		:		clean
-					$(RM) $(NAME1) $(NAME2)
+					$(RM) $(NAME)
 
 re			:		
 					@make fclean
@@ -79,4 +74,11 @@ delsav		:
 					$(RM) \#*\#
 					$(RM) */\#*\#
 
-.PHONY		:		clean fclean re delsav
+reset		:		
+					@make fclean
+					@make delsav
+					@make -C libft reset
+					@make -C minilibx_macos clean
+					@rm -Rf objs
+
+.PHONY		:		clean fclean re delsav reset
