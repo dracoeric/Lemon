@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 14:08:59 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 14:48:26 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ int				lem_in_parse_get_other(char *line, t_lem_in_data *data, t_parse **rooms, 
 		while (tmp != NULL)
 		{
 			data->anthill[i] = ft_strsub(tmp->name, 0, tmp->size);
+			if (tmp->state == 1)
+				data->start = i;
+			if (tmp->state == 2)
+				data->end = i;
 			i++;
 			tmp = tmp->next;
 		}
