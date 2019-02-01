@@ -6,11 +6,11 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 09:51:54 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 11:01:38 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_parseur.h"
+#include "lem_in.h"
 #include <stdio.h>
 
 char	*lem_in_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)

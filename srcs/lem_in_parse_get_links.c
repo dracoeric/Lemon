@@ -6,11 +6,11 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:13:08 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 09:51:47 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 11:01:24 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_parseur.h"
+#include "lem_in.h"
 #include <stdio.h>
 
 int	lem_in_parse_get_links(char *line, t_lem_in_data *data)
