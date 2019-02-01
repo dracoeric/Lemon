@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:28:32 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:43:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 15:05:30 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static	int		lem_in_is_previous(t_lem_in_data *data, t_path *path,
 						int room_candidat)
 {
+	if (path == 0)
+		return (0);
 	if (path->steps == 1 && room_candidat == data->start)
 		return (1);
 	if (path->steps < 2)
@@ -34,6 +36,7 @@ int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
 	{
 		while (*index < data->n_room)
 		{
+			ft_printf("index dans next= %d\n", *index);
 			if (!(lem_in_is_previous(data, path, *index))
 				&& LI_CONNECTED(data, n_room, *index)
 				&& !(LI_FLOW_CAPPED(data, n_room, *index)))

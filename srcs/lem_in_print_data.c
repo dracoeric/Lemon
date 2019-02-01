@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:46:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 14:51:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static	void	print_matrix(t_lem_in_data *data, char **matrix)
 	}
 }
 
-void		lem_in_print_data(t_lem_in_data *data)
+void			lem_in_print_data(t_lem_in_data *data)
 {
 	ft_printf("\n=========Lem_in_data============\n");
 	ft_printf("n_ant = %d\nstart = %d\nend = %d\nn_room = %d\noptions = %d\n",

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maintestparse.c                                    :+:      :+:    :+:   */
+/*   lem_in_print_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/31 13:58:57 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 15:03:11 by erli             ###   ########.fr       */
+/*   Created: 2019/02/01 14:53:27 by erli              #+#    #+#             */
+/*   Updated: 2019/02/01 14:56:40 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	main(int argc, char **argv)
+void		lem_in_print_path(t_path path)
 {
-	t_lem_in_data *data;
-
-	data = lem_in_parse(argc, argv);
-	lem_in_print_data(data);
-	lem_in_algo(data);
-	return (0);
+	ft_printf("path %d\nsteps = %d\n, path = %td\n", path.path_id, path.steps,
+			  path.path, path.steps);
 }
