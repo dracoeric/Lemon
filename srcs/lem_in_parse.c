@@ -6,12 +6,12 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 09:56:03 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 11:02:13 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "lem_in_parseur.h"
+#include "lem_in.h"
 
 
 int				lem_in_parse_get_ants(char *line, t_lem_in_data *data)
