@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:05:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:14:59 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ typedef struct	s_lem_in_data
 	int			start;
 	int			end;
 	int			n_room;
+	int			endroom;
 	int			options;
 	int			fd;
 	char		**anthill;
 	char		**matrix;
-	char		**matrix_old
+	char		**matrix_old;
 	int			*limits;
 	char		*buf;
 	int			buf_cursor;
@@ -78,8 +79,8 @@ typedef	struct	s_path
 	int				*occupants;
 	int				steps;
 	char			state;
-	struct s_path	next;
-	struct s_path	previous;
+	struct s_path	*next;
+	struct s_path	*previous;
 }				t_path;
 
 t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
@@ -90,7 +91,7 @@ void			lem_in_del_list(t_path **list);
 void			lem_in_trim_path(t_path **list);
 int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
 						int *index);
-t_path			*lem_in_bfs_path(t_lem_in-data *data);
+t_path			*lem_in_bfs_path(t_lem_in_data *data);
 int				lem_in_manage_node(t_lem_in_data *data, t_path **bubble,
 						int	*n_path);
 void			lem_in_add_flow(t_lem_in_data *data, int src, int dest);
@@ -106,7 +107,7 @@ void			lem_in_magic_paths(t_lem_in_data *data, char **matrix,
 void			lem_in_print(t_lem_in_data *data, int ant_id, int room,
 					int end_of_line);
 
-void			lem_in_print_data(t_lme_in_data *data);
+void			lem_in_print_data(t_lem_in_data *data);
 t_lem_in_data	*lem_in_parse(int argc, char **argv);
 int				lem_in_fill_file(char *line, t_file **file);
 int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file);
