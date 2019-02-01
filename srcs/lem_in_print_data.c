@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:59:15 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 14:46:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,15 @@ void		lem_in_print_data(t_lem_in_data *data)
 	if (data->anthill != 0)
 		ft_printf("anthill = \n%ts\n", data->anthill, data->n_room);
 	if (data->matrix != 0)
+	{
+		ft_printf("matrix:\n");
 		print_matrix(data, data->matrix);
+	}
 	if (data->matrix_old != 0)
+	{
+		ft_printf("matrix_old:\n");
 		print_matrix(data, data->matrix_old);
+	}
 	if (data->buf != 0)
 		ft_printf("buf = \n%td\n", data->anthill, B_SIZE);
 }
