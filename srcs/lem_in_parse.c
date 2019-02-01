@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 11:02:13 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 12:44:52 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,17 @@ int				lem_in_parse_get_other(char *line, t_lem_in_data *data, t_parse **rooms, 
 			tmp = tmp->next;
 		}
 		data->matrix = (char **)malloc(sizeof(char *) * (data->n_room + 1));
+		data->matrix_old = (char **)malloc(sizeof(char *) * (data->n_room + 1));
 		i = 0;
 		while (i < data->n_room)
 		{
 			//proteger aussi
 			data->matrix[i] = ft_strnew(data->n_room);
+			data->matrix_old[i] = ft_strnew(data->n_room);
 			i++;
 		}
 		data->matrix[data->n_room] = NULL;
+		data->matrix_old[data->n_room] = NULL;
 	}
 	if (tr == 0 && data->endroom == 1)
 		tr = lem_in_parse_get_links(line, data);
@@ -129,10 +132,9 @@ int				lem_in_read(t_lem_in_data *data)
 t_lem_in_data	*lem_in_parse(int argc, char **argv)
 {
 	t_lem_in_data	*data;
+	int				tr;
 
-	(void)argv;
-	(void)argc;
-
+	tr = 0;
 	if (!(data = (t_lem_in_data *)malloc(sizeof(t_lem_in_data) * 1)))
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	data->n_ant = 0;
@@ -140,7 +142,11 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 	data->endroom = 0;
 	data->start = -1;
 	data->end = -1;
-	lem_in_read(data);
+	data->options = 0;
+	if (argc > 1)
+		tr = lem_in_get_options(argc, argv, data);
+	if (tr > 0)
+		lem_in_read(data);
 	return (0);
 }
 
