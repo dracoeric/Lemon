@@ -6,14 +6,15 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:39:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 14:01:10 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 18:12:02 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdio.h>
 
-void	lem_in_fill_file_cpynew_cpy(t_file **new, char *line, int len, char *newbuff)
+void	lem_in_fill_file_cpynew_cpy(t_file **new,\
+		char *line, int len, char *newbuff)
 {
 	ft_strcpy(newbuff, line);
 	(*new)->buff = newbuff;
@@ -21,7 +22,8 @@ void	lem_in_fill_file_cpynew_cpy(t_file **new, char *line, int len, char *newbuf
 	(*new)->size = len + 1;
 }
 
-int		lem_in_fill_file_create_new(char *line, t_file *tmp, t_file **new, int len)
+int		lem_in_fill_file_create_new(char *line, t_file *tmp,\
+		t_file **new, int len)
 {
 	char	*newbuff;
 
@@ -29,7 +31,8 @@ int		lem_in_fill_file_create_new(char *line, t_file *tmp, t_file **new, int len)
 		return (ft_msg_int(2, "Abort, failed malloc file", -1));
 	if (!(newbuff = (char *)malloc(sizeof(char) * (B_SIZE + 1))))
 	{
-		free(new);
+		free(*new);
+		*new = NULL;
 		return (ft_msg_int(2, "Abort, failed malloc buff_file", -1));
 	}
 	ft_bzero(newbuff, B_SIZE + 1);

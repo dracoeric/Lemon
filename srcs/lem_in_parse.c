@@ -6,60 +6,32 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 14:48:26 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 18:20:26 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "lem_in.h"
 
-int				lem_in_parse_get_other(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file)
+int				lem_in_parse_get_other(char *line, t_lem_in_data *data,\
+		t_parse **rooms, t_file *file)
 {
 	int	tr;
-	int	i;
-	t_parse *tmp;
 
 	tr = 0;
 	if (data->endroom == 0)
 		tr = lem_in_parse_get_rooms(line, data, rooms, file);
 	if (tr == 0 && data->endroom == 0)
-	{
-		data->endroom = 1;
-		//proteger les 2 malloc
-		data->anthill = (char **)malloc(sizeof(char *) * (data->n_room + 1));
-		tmp = *rooms;
-		i = 0;
-		while (tmp != NULL)
-		{
-			data->anthill[i] = ft_strsub(tmp->name, 0, tmp->size);
-			if (tmp->state == 1)
-				data->start = i;
-			if (tmp->state == 2)
-				data->end = i;
-			i++;
-			tmp = tmp->next;
-		}
-		data->matrix = (char **)malloc(sizeof(char *) * (data->n_room + 1));
-		data->matrix_old = (char **)malloc(sizeof(char *) * (data->n_room + 1));
-		i = 0;
-		while (i < data->n_room)
-		{
-			//proteger aussi
-			data->matrix[i] = ft_strnew(data->n_room);
-			data->matrix_old[i] = ft_strnew(data->n_room);
-			i++;
-		}
-		data->matrix[data->n_room] = NULL;
-		data->matrix_old[data->n_room] = NULL;
-	}
+		tr = lem_in_create_anthill_matrix(data, *rooms);
 	if (tr == 0 && data->endroom == 1)
-		tr = lem_in_parse_get_links(line, data);
+		tr = lem_in_parse_get_links(line, data, -1, -1);
 	if (tr == 0)
 		return (ft_msg_int(2, "Abort, not a pipe, not a room", -1));
 	return (tr);
 }
 
-int				lem_in_parse_line(char *line, t_lem_in_data *data, t_file **file, t_parse **rooms)
+int				lem_in_parse_line(char *line, t_lem_in_data *data,\
+		t_file **file, t_parse **rooms)
 {
 	int	tr;
 
@@ -83,7 +55,7 @@ int				lem_in_parse_line(char *line, t_lem_in_data *data, t_file **file, t_parse
 			return (ft_msg_int(2, "Abort, double start or end input", -1));
 	}
 	if (tr < 0)
-		return (-1);
+		return (tr);
 	return (1);
 }
 
@@ -105,7 +77,6 @@ void			lem_in_delete_last_entry_file(t_file **file, char *line)
 	}
 	tmp->size = tmp->size - i + 1;
 }
-	
 
 int				lem_in_read(t_lem_in_data *data)
 {
@@ -131,6 +102,8 @@ int				lem_in_read(t_lem_in_data *data)
 	lem_in_free_rooms(&rooms);
 	if (tr < 0)
 		return (ft_msg_int(2, "Abort, failed gnl", -1));
+	if (tr2 == -2)
+		return (-1);
 	return (1);
 }
 
@@ -144,14 +117,21 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	data->n_ant = 0;
 	data->n_room = 0;
+	data->fd = 0;
 	data->endroom = 0;
 	data->start = -1;
 	data->end = -1;
 	data->options = 0;
+	data->anthill = NULL;
+	data->matrix = NULL;
+	data->matrix_old = NULL;
+	data->buf = NULL;
+	data->limits = NULL;
 	if (argc > 1)
 		tr = lem_in_get_options(argc, argv, data);
 	if (tr > 0)
-		lem_in_read(data);
+		tr = lem_in_read(data);
+	if (tr < 0)
+		lem_in_free_data(&data);
 	return (data);
 }
-

@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/01 14:53:16 by erli             ###   ########.fr        #
+#    Updated: 2019/02/01 18:08:21 by pmasson          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -25,6 +25,7 @@ SRCS		=		main.c				lem_in_add_flow.c		lem_in_algo.c		\
 					lem_in_send_ants.c	lem_in_test_opti.c		lem_in_trim_path.c	\
 					lem_in_get_options.c	lem_in_free.c		lem_in_print_path.c	\
 					lem_in_parse_get_ants.c		lem_in_print_total_step.c			\
+					lem_in_create_anthill_matrix.c									\
 																					\
 					mlx_line_put.c		mlx_str_to_colour.c
 

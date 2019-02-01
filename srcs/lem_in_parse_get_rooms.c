@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 14:07:46 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 18:40:44 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,63 @@ char	*lem_in_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)
 	return (tmpfile->buff + tmpfile->size - (len + 1));
 }
 
-int	lem_in_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
+int		lem_in_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,\
+		t_parse *new, int *tr)
+{
+	int min;
+
+	min = new->size < (*tmp)->size ? new->size : (*tmp)->size;
+	*tr = ft_strncmp(new->name, (*tmp)->name, min);
+	if (*tr == 0 && new->size == (*tmp)->size)
+	{
+		free(new);
+		return (ft_msg_int(2, "Abort, 2 rooms with same name", -1));
+	}
+	else if (*tr == 0 && new->size > (*tmp)->size)
+	{
+		*tr = *tr + 1;
+	}
+	if (*tr > 0)
+	{
+		*tmp2 = *tmp;
+		*tmp = (*tmp)->next;
+	}
+	return (1);
+}
+
+int		lem_in_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
 {
 	t_parse	*tmp;
 	t_parse	*tmp2;
-	int		min;
 	int		tr;
 
 	tr = 1;
 	tmp = *rooms;
+	tmp2 = NULL;
 	while (tmp != NULL && tr > 0)
 	{
-		min = new->size < tmp->size ? new->size : tmp->size;
-		tr = ft_strncmp(new->name, tmp->name, min);
-		if (tr == 0 && new->size == tmp->size)
-		{
-			free(new);
-			return (ft_msg_int(2, "Abort, 2 rooms with same name", -1));
-		}
-		if (tr > 0)
-		{
-			tmp2 = tmp;
-			tmp = tmp->next;
-		}
+		if (lem_in_parse_get_rooms_place_room2(&tmp, &tmp2, new, &tr) == -1)
+			return (-1);
 	}
-	tmp2->next = new;
-	new->next = tmp;
+	if (tmp2 != NULL)
+	{
+		tmp2->next = new;
+		new->next = tmp;
+	}
+	if (tmp2 == NULL)
+	{
+		new->next = tmp;
+		*rooms = new;
+	}
 	return (1);
 }
 
-int	lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file)
+int		lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data,\
+		t_parse **rooms, t_file *file)
 {
 	t_parse	*new;
-	int			len;
-	int			nbuff;
+	int		len;
+	int		nbuff;
 
 	nbuff = 0;
 	if (!(new = (t_parse *)malloc(sizeof(t_parse) * 1)))
@@ -96,7 +119,8 @@ int	lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data, t_parse **roo
 	return (1);
 }
 
-int	lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms, t_file *file)
+int		lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms,\
+		t_file *file)
 {
 	int	i;
 	int	tr;
@@ -105,14 +129,12 @@ int	lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms, t_file
 	i = 1;
 	while (l[i] != '\0' && l[i] != ' ')
 		i++;
-	if (l[i] != ' ')
-		tr = 0;
+	tr = l[i] != ' ' ? 0 : tr;
 	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
 		i++;
 	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)
 		i++;
-	if (l[i] != ' ')
-		tr = 0;
+	tr = l[i] != ' ' ? 0 : tr;
 	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
 		i++;
 	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)

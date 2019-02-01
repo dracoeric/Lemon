@@ -6,13 +6,13 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 14:08:45 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 18:14:49 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int             lem_in_parse_get_ants(char *line, t_lem_in_data *data)
+int	lem_in_parse_get_ants(char *line, t_lem_in_data *data)
 {
 	int i;
 

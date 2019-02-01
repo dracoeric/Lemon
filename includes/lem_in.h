@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:54:26 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 18:43:05 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,12 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv);
 int				lem_in_fill_file(char *line, t_file **file);
 int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file);
 int				lem_in_atoi(char *str, int *d);
+int				lem_in_create_anthill_matrix(t_lem_in_data *data, t_parse *rooms);
 int				lem_in_parse_get_ants(char *line, t_lem_in_data *data);
-int				lem_in_parse_get_links(char *line, t_lem_in_data *data);
+int				lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1, int tr2);
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
 void			lem_in_free_rooms(t_parse **rooms);
 void			lem_in_print_total_step(t_lem_in_data *data, int steps);
 void			lem_in_print_path(t_path path);
+void			lem_in_free_data(t_lem_in_data **data);
 #endif
