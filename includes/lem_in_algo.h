@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:30:26 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 18:24:12 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 08:20:40 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,6 @@ void			lem_in_magic_paths(t_lem_in_data *data, char **matrix,
 					t_path *paths, int max_paths);
 void			lem_in_print(t_lem_in_data *data, int ant_id, int room,
 					int end_of_line);
+
+void			lem_in_print_data(t_lme_in_data *data);
 #endif
