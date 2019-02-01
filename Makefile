@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/01 11:17:55 by erli             ###   ########.fr        #
+#    Updated: 2019/02/01 11:59:23 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -54,7 +54,7 @@ $(LIB)		:
 $(LIBMLX)	:
 					make -C minilibx_macos/
 
-$(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c includes/push_swap.h
+$(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c includes/lem_in.h
 					@mkdir -p $(OBJSDIR)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
