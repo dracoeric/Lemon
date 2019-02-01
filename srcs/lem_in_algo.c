@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 12:02:32 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:32:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static	void	lem_in_add_path_flow(t_lem_in_data *data, t_path *path)
 	}
 }
 
-static	void	lem_in_draw_paths(t_lem_in_data *data, int max_paths)
+static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 {
 	int		i;
 	t_path	*shortest_path;
@@ -66,10 +66,13 @@ static	void	lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 		if (i > 1 && shortest_path != 0)
 			old_is_better = lem_in_test_opti(data, i);
 	}
+	if (i == 0)
+		return (-1);
 	if (old_is_better == 1)
 		lem_in_send_ants(data, max_paths, 1);
 	else
 		lem_in_send_ants(data, max_paths, 0);
+	return (0);
 }
 
 int				lem_in_algo(t_lem_in_data *data)
@@ -81,8 +84,7 @@ int				lem_in_algo(t_lem_in_data *data)
 	start_out = lem_in_count_channel(data, data->start);
 	end_in = lem_in_count_channel(data, data->end);
 	max_paths = (start_out < end_in ? start_out : end_in);
-	if (max_paths == 0)
+	if (max_paths == 0 || lem_in_draw_paths(data, max_paths) == -1)
 		return (-1);
-	lem_in_draw_paths(data, max_paths);
 	return (0);
 }

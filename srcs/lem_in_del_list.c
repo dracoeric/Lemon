@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:48:31 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:54:22 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 12:45:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void			lem_in_del_list(t_path **list)
 	}
 	free((*list)->path);
 	free(*list);
-	*list == NULL;
+	*list = NULL;
 }

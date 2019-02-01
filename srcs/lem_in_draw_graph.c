@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 12:48:45 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:54:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:00:17 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static	t_colour	lem_in_colour(int z)
 		return (mlx_str_to_colour("0x0019071a"));
 	else if (mod == 9)
 		return (mlx_str_to_colour("0x0019071a"));
-	else if (mod == 10)
+	else
 		return (mlx_str_to_colour("0x0019071a"));
 }
 
 void				lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 						t_mapcoord b)
 {
-	int			dxy[2];
-	int			dpxy[2];
-	t_pixcoord	pix[2];
-	t_mlx_win	mlxwin[1];
+	int				dxy[2];
+	int				dpxy[2];
+	t_pixcoord		pix[2];
+	t_mlxwin_ptr	mlxwin[1];
 
 	dpxy[0] = 1;
 	dpxy[1] = 1;

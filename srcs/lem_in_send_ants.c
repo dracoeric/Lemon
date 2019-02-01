@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:13:51 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:56:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:12:52 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void			lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode)
 	}
 	data->limits = limits;
 	lem_in_magic_paths(data, matrix, paths, max_paths);
+	ft_merge_sort_tab(steps, max_paths);
 	lem_in_get_limits(data, steps, max_paths);
 	lem_in_move_ants(data, paths, max_paths);
 	i = 0;

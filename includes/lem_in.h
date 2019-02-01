@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 12:41:50 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 13:37:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct	s_lem_in_data
 	int			n_ant;
 	int			start;
 	int			end;
+	t_file		*file;
 	int			n_room;
 	int			endroom;
 	int			options;
@@ -72,6 +73,7 @@ typedef struct	s_lem_in_data
 
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int			max_steps;
 }				t_lem_in_data;
 
 
@@ -81,7 +83,6 @@ typedef	struct	s_path
 	int				*path;
 	int				*occupants;
 	int				steps;
-	char			state;
 	struct s_path	*next;
 	struct s_path	*previous;
 }				t_path;
@@ -105,7 +106,7 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths);
 void			lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 					t_mapcoord b);
 void			lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode);
-void			lem_in_magic_paths(t_lem_in_data *data, char **matrix,
+int				lem_in_magic_paths(t_lem_in_data *data, char **matrix,
 					t_path *paths, int max_paths);
 void			lem_in_print(t_lem_in_data *data, int ant_id, int room,
 					int end_of_line);

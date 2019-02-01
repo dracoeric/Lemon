@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:44:10 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:54:06 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:13:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static	t_path	*lem_in_free_then_abort(t_path *path)
 	return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 }
 
-static	int		*lem_in_dup_path(int *dest, int *src, int steps)
+static	void	lem_in_dup_path(int *dest, int *src, int steps)
 {
 	int	i;
 
@@ -42,7 +42,6 @@ t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	elem->path_id = *n_path;
 	elem->steps = 1;
-	elem->state = 0;
 	elem->previous = NULL;
 	elem->next = NULL;
 	if (!(tab = (int *)malloc(sizeof(int) * data->n_ant)))

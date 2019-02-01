@@ -6,24 +6,27 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:19:10 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:53:55 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:24:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static	t_path	*lem_in_manage_found(t_lem_in_data *data, t_path **list,
-						int found)
+static	t_path	*lem_in_manage_found(t_path **list, int found)
 {
 	if (found == -2)
 	{
 		lem_in_del_list(list);
-		return (NULL);
+		return (ft_msg_ptr(2, "A malloc has failed in manage_found.\n", 0));
 	}
 	else if (found == 1)
-		return (lem_in_trim_path(list));
+	{
+		lem_in_trim_path(list);
+		return (*list);
+	}
 	else if (found == -1)
 		return (NULL);
+	return (NULL);
 }
 
 static	int		lem_in_init_paths(t_lem_in_data *data, t_path **list,
@@ -39,11 +42,11 @@ static	int		lem_in_init_paths(t_lem_in_data *data, t_path **list,
 	{
 		elem = lem_in_create_path(data, next, n_path, NULL);
 		if (elem == 0)
-			return (-2);
+			return (ft_msg_int(2, "Failed malloc.\n", -2));
 		lem_in_path_add(list, elem);
 		if (next == data->end)
 			return (1);
-		next = lem_in_next_room(data, data->start, &index);
+		next = lem_in_next_room(data, *list, data->start, &index);
 	}
 	return (0);
 }
@@ -58,14 +61,14 @@ t_path			*lem_in_bfs_path(t_lem_in_data *data)
 
 	list = 0;
 	n_path = 0;
-	found = lem_in_init_paths(data, list, data->start, &n_path);
+	found = lem_in_init_paths(data, &list, &n_path);
 	n_steps = 1;
 	while (found == 0)
 	{
 		bubble = list;
 		while (found == 0 && bubble != 0)
 		{
-			if (boubble->steps > n_steps)
+			if (bubble->steps > n_steps)
 				bubble = bubble->next;
 			else
 				found = lem_in_manage_node(data, &bubble, &n_path);
