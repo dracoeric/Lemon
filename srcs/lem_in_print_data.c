@@ -6,11 +6,12 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:55:46 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:59:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
+#include "lem_in.h"
+#include <unistd.h>
 
 static	void	print_matrix(t_lem_in_data *data, char **matrix)
 {

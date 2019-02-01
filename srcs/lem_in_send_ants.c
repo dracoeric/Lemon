@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:13:51 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:12:52 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 14:29:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	void	lem_in_advance_line(t_lem_in_data *data, t_path *paths, int i,
 	j = paths[i].steps - 1;
 	end_of_line = 0;
 	if (paths[i].occupants[j] != 0)
-		lem_in_print(paths[i].occupants[j], data->end);
+		lem_in_print(data, paths[i].occupants[j], data->end, end_of_line);
 	ft_memmove((paths[i].occupants) + 1, paths[i].occupants,
 		paths[i].steps - 1);
 	while (j >= 0)
@@ -74,8 +74,8 @@ static	void	lem_in_move_ants(t_lem_in_data *data, t_path *paths,
 	data->buf = buf;
 	data->buf_cursor = 0;
 	id_ant = 1;
-	n_steps;
-	while (id_ants <= data->n_ant || lem_in_lines_not_empty(paths, max_paths))
+	n_steps = 0;
+	while (id_ant <= data->n_ant || lem_in_lines_not_empty(paths, max_paths))
 	{
 		i = max_paths - 1;
 		while (i >= 0)
@@ -83,15 +83,10 @@ static	void	lem_in_move_ants(t_lem_in_data *data, t_path *paths,
 		n_steps++;
 	}
 	if (LI_OPT_STEPS(data->options))
-	{
-		ft_printf("\n====RESUME====\n%d ants moved from room ", data->n_ants);
-		ft_printf("'%s' to room '%s' in %d steps\n",
-			(data->anthill)[data->start]);
-		ft_printf("'%s' in %d steps\n", (data->anthill)[data->end], n_steps);
-	}
+		lem_in_print_total_step(data, n_steps);
 }
 
-static	void	lem_in_get_limits(lem_in_data *data, int *steps,
+static	void	lem_in_get_limits(t_lem_in_data *data, int *steps,
 					int max_paths)
 {
 	int a;
@@ -127,7 +122,7 @@ void			lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode)
 	}
 	data->limits = limits;
 	lem_in_magic_paths(data, matrix, paths, max_paths);
-	ft_merge_sort_tab(steps, max_paths);
+	ft_merge_sort_tab(steps, steps, max_paths);
 	lem_in_get_limits(data, steps, max_paths);
 	lem_in_move_ants(data, paths, max_paths);
 	i = 0;

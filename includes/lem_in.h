@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:10:15 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 14:28:46 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ int				lem_in_parse_get_ants(char *line, t_lem_in_data *data);
 int				lem_in_parse_get_links(char *line, t_lem_in_data *data);
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
 void			lem_in_free_rooms(t_parse **rooms);
+void			lem_in_print_total_step(t_lem_in_data *data, int steps);
 #endif

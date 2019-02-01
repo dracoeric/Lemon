@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:33:14 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:55:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 13:44:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		lem_in_path_add(t_path **list, t_path *path)
 	if (list == 0 || path == 0)
 		return ;
 	if (*list == 0)
-		*list == path;
+		*list = path;
 	else
 	{
 		tmp = (*list)->next;

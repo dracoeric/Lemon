@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:58:58 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:51:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 14:35:43 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	void	lem_in_del_first(t_path **list)
 	if (list == 0 || *list == 0 || (*list)->next == 0)
 		return ;
 	head = (*list)->next;
-	head->previous - NULL;
+	head->previous = NULL;
 	free((*list)->path);
 	free(*list);
 	*list = head;
@@ -45,12 +45,11 @@ void			lem_in_trim_path(t_path **list)
 
 	if (list == 0 || *list == 0)
 		return ;
-	*list;
+	*list = NULL;
 	while ((*list)->next != 0)
 	{
 		next = (*list)->next;
-		if ((*list)->state != 1 || (next->steps < (*list)->steps
-			&& next->state == 1))
+		if (next->steps < (*list)->steps)
 			lem_in_del_first(list);
 		else
 			lem_in_del_second(list);
