@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 13:13:57 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 14:07:46 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	lem_in_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
 		min = new->size < tmp->size ? new->size : tmp->size;
 		tr = ft_strncmp(new->name, tmp->name, min);
 		if (tr == 0 && new->size == tmp->size)
+		{
+			free(new);
 			return (ft_msg_int(2, "Abort, 2 rooms with same name", -1));
+		}
 		if (tr > 0)
 		{
 			tmp2 = tmp;

@@ -6,31 +6,12 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 13:41:38 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 14:08:59 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "lem_in.h"
-
-
-int				lem_in_parse_get_ants(char *line, t_lem_in_data *data)
-{
-	int	i;
-
-	i = 1;
-	if (line[0] != '+' && ft_isdigit(line[0]) == 0)
-		return (ft_msg_int(2, "Abort, wrong input (nb ants)", -1));
-	while (line[i] != '\0' && ft_isdigit(line[i]) == 1)
-		i++;
-	if (line[i] == '\0')
-		lem_in_atoi(line, &(data->n_ant));
-	else
-		return (ft_msg_int(2, "Abort, wrong input (nb ants)", -1));
-	if (data->n_ant == 0)
-		return (ft_msg_int(2, "Abort, wrong input (nb ants)", -1));
-	return (1);
-}
 
 int				lem_in_parse_get_other(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file)
 {
@@ -142,6 +123,7 @@ int				lem_in_read(t_lem_in_data *data)
 		free(line);
 		line = NULL;
 	}
+	data->file = file;
 	lem_in_free_rooms(&rooms);
 	if (tr < 0)
 		return (ft_msg_int(2, "Abort, failed gnl", -1));
