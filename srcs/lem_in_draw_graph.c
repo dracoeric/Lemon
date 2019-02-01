@@ -6,11 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 12:48:45 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 14:55:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:54:33 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
+#include "lem_in.h"
 
 static	t_colour	lem_in_colour(int z)
 {

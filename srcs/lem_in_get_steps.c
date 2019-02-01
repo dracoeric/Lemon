@@ -6,11 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 15:01:32 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 19:27:31 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:54:43 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
+#include "lem_in.h"
 
 void	lem_in_get_steps(t_lem_in_data *data, char **matrix,
 						int *tab, int n_paths)

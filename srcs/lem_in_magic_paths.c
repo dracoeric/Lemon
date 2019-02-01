@@ -6,13 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:22:28 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 19:27:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:54:53 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "lem_in.h"
 
 static	void	lem_in_init_paths(t_path *paths, int max_paths)
 {

@@ -6,12 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:34:24 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 19:28:01 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:55:39 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
+#include "lem_in.h"
 #include <unistd.h>
 
 static	void	lem_in_add_print(t_lem_in_data *data, int ant_id, int room,

@@ -6,13 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:19:10 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 17:49:35 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:53:55 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "lem_in.h"
 
 static	t_path	*lem_in_manage_found(t_lem_in_data *data, t_path **list,
 						int found)

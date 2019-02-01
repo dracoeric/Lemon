@@ -6,12 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:13:51 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 19:28:20 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:56:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
+#include "lem_in.h"
 
 static	int		lem_in_lines_not_empty(t_path *paths, int max_paths)
 {

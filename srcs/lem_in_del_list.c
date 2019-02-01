@@ -6,12 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:48:31 by erli              #+#    #+#             */
-/*   Updated: 2019/01/29 17:52:06 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:54:22 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include <stdlib.h>
+#include "lem_in.h"
 
 void			lem_in_del_list(t_path **list)
 {

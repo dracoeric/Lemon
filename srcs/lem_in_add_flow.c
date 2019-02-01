@@ -6,13 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 10:34:42 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 10:38:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:53:11 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "lem_in.h"
 
 void		lem_in_add_flow(t_lem_in_data *data, int src, int dest)
 {

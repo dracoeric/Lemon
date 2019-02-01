@@ -6,13 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:44:10 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 13:13:39 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:54:06 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "lem_in.h"
 
 static	t_path	*lem_in_free_then_abort(t_path *path)
 {

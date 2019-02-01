@@ -6,12 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 15:28:24 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:53:21 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
+#include "lem_in.h"
 
 static	int		lem_in_count_channel(t_lem_in_data *data, int room_id)
 {

@@ -6,11 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 09:56:17 by erli              #+#    #+#             */
-/*   Updated: 2019/01/30 17:50:50 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:55:00 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
+#include "lem_in.h"
 
 static	int		lem_in_do_fork(t_lem_in_data *data, t_path **bubble,
 						int *n_path, int index)

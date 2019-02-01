@@ -6,11 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:33:14 by erli              #+#    #+#             */
-/*   Updated: 2019/01/29 16:32:45 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:55:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
+#include "lem_in.h"
 
 void		lem_in_path_add(t_path **list, t_path *path)
 {

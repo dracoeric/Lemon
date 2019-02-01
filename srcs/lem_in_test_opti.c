@@ -6,12 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/01/31 15:01:27 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/01 11:51:48 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in_algo.h"
-#include "libft.h"
+#include "lem_in.h"
 
 static	void	lem_in_set_map_coord(t_mapcoord *map, int x, int y, int z)
 {
