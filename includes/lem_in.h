@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 11:14:59 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 11:35:03 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define LI_FLOW(data, i, j) (((data->matrix)[i][j] >> 1) & 1) == 1)
 # define LI_POS_FLOW(data, i, j) (((data->matrix)[i][j] >> 2) & 1) == 1)
 # define LI_FLOW_CAPPED(data, i, j) (((data->matrix)[i][j] >> 1) & 3) == 3)
+# define LI_OPT_OUT(x) ((x & 1) == 1)
+# define LI_OPT_STEPS(x) (((x >> 1) & 1) == 1)
+# define LI_OPT_GRAPH(x) (((x >> 2) & 1) == 1)
 
 typedef	struct	s_file
 {
