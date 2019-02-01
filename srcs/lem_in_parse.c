@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 12:44:52 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/01 12:49:45 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,6 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 		tr = lem_in_get_options(argc, argv, data);
 	if (tr > 0)
 		lem_in_read(data);
-	return (0);
+	return (data);
 }
 
