@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 17:51:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 18:54:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 	i = 0;
 	while (i < max_paths && old_is_better == 0)
 	{
+		ft_printf("i = %d\n", i);
 		shortest_path = lem_in_bfs_path(data);
 		if (shortest_path == 0)
 			max_paths = i;

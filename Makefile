@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/04 10:46:38 by erli             ###   ########.fr        #
+#    Updated: 2019/02/04 19:31:14 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -31,7 +31,7 @@ SRCS		=		main_unit.c				lem_in_add_flow.c		lem_in_algo.c		\
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
-CC			=		gcc -g 
+CC			=		gcc -g
 
 CFLAG		=		-Wall -Werror -Wextra
 

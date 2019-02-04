@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:19:10 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 17:56:46 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 19:30:47 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static	t_path	*lem_in_manage_found(t_lem_in_data *data, t_path **list,
 	else if (found == 1)
 	{
 		lem_in_trim_path(data, list);
+		lem_in_print_path(*list);
 		return (*list);
 	}
 	else if (found == -1)
@@ -63,19 +64,24 @@ t_path			*lem_in_bfs_path(t_lem_in_data *data)
 	list = 0;
 	n_path = 0;
 	found = lem_in_init_paths(data, &list, &n_path);
-	lem_in_print_path(list);
 	n_steps = 1;
 	while (found == 0)
 	{
 		bubble = list;
+		ft_printf("avant boucle\n");
 		while (found == 0 && bubble != 0)
 		{
 			if (bubble->steps > n_steps)
 				bubble = bubble->next;
 			else
+			{
+				ft_printf("avamnt manage\n");
 				found = lem_in_manage_node(data, &bubble, &n_path);
+			}
+			ft_printf("out\n");
 		}
 		n_steps++;
+		ft_printf("steps = %d\n", n_steps);
 		if (list == 0)
 			found = -1;
 	}
