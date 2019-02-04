@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:34:24 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:51:50 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 14:42:12 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ static	int		lem_in_get_width(int nb)
 	int width;
 
 	width = 1;
-	while (nb <= 10)
+	while (nb >= 10)
+	{
 		nb /= 10;
+		width++;
+	}
 	return (width);
 }
 
@@ -42,12 +45,12 @@ static	void	lem_in_add_print(t_lem_in_data *data, int ant_id, int room,
 	while (pow != 0)
 	{
 		(data->buf)[i++] = ant_id / pow + '0';
-		ant_id = ant_id & pow;
+		ant_id = ant_id % pow;
 		pow /= 10;
 	}
 	(data->buf)[i++] = '-';
 	ft_strncpy(data->buf + i, ((data->anthill)[room]), len - width - 3);
-	data->buf_cursor += len - 1;
+	data->buf_cursor += len;
 }
 
 static	void	lem_in_print_fd(t_lem_in_data *data, int ant_id, int room,

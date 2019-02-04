@@ -6,13 +6,14 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:19:10 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 15:18:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 17:56:46 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static	t_path	*lem_in_manage_found(t_path **list, int found)
+static	t_path	*lem_in_manage_found(t_lem_in_data *data, t_path **list,
+					int found)
 {
 	if (found == -2)
 	{
@@ -21,7 +22,7 @@ static	t_path	*lem_in_manage_found(t_path **list, int found)
 	}
 	else if (found == 1)
 	{
-		lem_in_trim_path(list);
+		lem_in_trim_path(data, list);
 		return (*list);
 	}
 	else if (found == -1)
@@ -62,6 +63,7 @@ t_path			*lem_in_bfs_path(t_lem_in_data *data)
 	list = 0;
 	n_path = 0;
 	found = lem_in_init_paths(data, &list, &n_path);
+	lem_in_print_path(list);
 	n_steps = 1;
 	while (found == 0)
 	{
@@ -77,5 +79,5 @@ t_path			*lem_in_bfs_path(t_lem_in_data *data)
 		if (list == 0)
 			found = -1;
 	}
-	return (lem_in_manage_found(&list, found));
+	return (lem_in_manage_found(data, &list, found));
 }

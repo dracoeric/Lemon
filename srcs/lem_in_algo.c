@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:52:45 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 17:51:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static	void	lem_in_add_path_flow(t_lem_in_data *data, t_path *path)
 	i = 0;
 	while (i < data->n_room)
 	{
-		ft_strncpy((data->matrix_old)[i], (data->matrix)[i], data->n_room);
+		ft_memcpy((data->matrix_old)[i], (data->matrix)[i], data->n_room);
 		i++;
 	}
 	i = 0;
 	lem_in_add_flow(data, data->start, (path->path)[0]);
 	while (i + 1 < path->steps)
 	{
-		lem_in_add_flow(data, (path->path)[0], (path->path)[1]);
+		lem_in_add_flow(data, (path->path)[i], (path->path)[i + 1]);
 		i++;
 	}
 }
@@ -69,7 +69,7 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 	if (i == 0)
 		return (-1);
 	if (old_is_better == 1)
-		lem_in_send_ants(data, max_paths, 1);
+		lem_in_send_ants(data, i - 1, 1);
 	else
 		lem_in_send_ants(data, max_paths, 0);
 	return (0);

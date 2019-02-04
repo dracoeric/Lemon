@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 18:43:05 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/04 11:40:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
 void			lem_in_path_add(t_path **list, t_path *path);
 void			lem_in_rm_path(t_path **list, int path_id);
 void			lem_in_del_list(t_path **list);
-void			lem_in_trim_path(t_path **list);
+void			lem_in_trim_path(t_lem_in_data *data, t_path **list);
 int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
 						int *index);
 t_path			*lem_in_bfs_path(t_lem_in_data *data);
@@ -114,6 +114,6 @@ int				lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1, int tr2)
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
 void			lem_in_free_rooms(t_parse **rooms);
 void			lem_in_print_total_step(t_lem_in_data *data, int steps);
-void			lem_in_print_path(t_path path);
+void			lem_in_print_path(t_path *path);
 void			lem_in_free_data(t_lem_in_data **data);
 #endif

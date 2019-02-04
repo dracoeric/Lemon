@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 09:56:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:22:49 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 11:32:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static	int		lem_in_do_fork(t_lem_in_data *data, t_path **bubble,
 		if (elem == 0)
 			return (ft_msg_int(2, "Failed malloc.\n", -2));
 		lem_in_path_add(bubble, elem);
+		if (next_id == data->end)
+			return (1);
 		next_id = lem_in_next_room(data, *bubble, room, index);
 	}
 	return (0);

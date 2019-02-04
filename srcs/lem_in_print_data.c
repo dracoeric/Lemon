@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:51:13 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 16:43:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,24 @@ static	void	print_matrix(t_lem_in_data *data, char **matrix)
 {
 	int	i;
 	int	j;
+	int	count;
 
 	i = 0;
+	count = 0;
 	while (i < data->n_room)
 	{
 		j = 0;
 		while (j < data->n_room)
 		{
 			ft_printf("%d ", (int)matrix[i][j]);
+			if ((int)matrix[i][j] != 0)
+				count++;
 			j++;
 		}
 		write(1, "\n", 1);
 		i++;
 	}
+	ft_printf("count = %d\n", count);
 }
 
 void			lem_in_print_data(t_lem_in_data *data)

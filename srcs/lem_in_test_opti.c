@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 14:33:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 17:36:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ static	int		lem_in_eval_steps(t_lem_in_data *data, int *tab, int n_paths)
 	int			i;
 	int			limit;
 
-	a = 1.0;
-	b = (double)(tab[0] - 1);
-	i = 1;
 	if (n_paths == 1)
 		return (data->n_ant + tab[0] - 1);
+	a = 1.0;
+	b = (double)(tab[0] - 1);
+	i = 0;
 	limit = 1 + tab[1] - tab[0];
 	while (i + 1 < n_paths && data->n_ant > limit)
 	{
@@ -81,9 +81,10 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 	lem_in_get_steps(data, data->matrix_old, steps_old, n_paths - 1);
 	lem_in_get_steps(data, data->matrix, steps_new, n_paths);
 	ft_merge_sort_tab(steps_old, steps_old, n_paths - 1);
-	ft_merge_sort_tab(steps_new, steps_old, n_paths);
+	ft_merge_sort_tab(steps_new, steps_new, n_paths);
 	n_steps = lem_in_eval_steps(data, steps_old, n_paths - 1);
 	n_steps_new = lem_in_eval_steps(data, steps_new, n_paths);
+	ft_printf("\n==== old vs new ====\n%d vs %d\n", n_steps, n_steps_new);
 	if (n_paths == 2)
 		data->max_steps = n_steps;
 	if (LI_OPT_GRAPH(data->options))
@@ -91,7 +92,7 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 		lem_in_draw_graph_lines(data, steps_old, n_paths - 1);
 		lem_in_draw_graph_lines(data, steps_new, n_paths);
 	}
-	else if (n_steps < n_steps_new)
-		return (1);
-	return (0);
+	if (n_steps > n_steps_new)
+		return (0);
+	return (1);
 }

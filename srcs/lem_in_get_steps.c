@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 15:01:32 by erli              #+#    #+#             */
-/*   Updated: 2019/02/01 13:00:32 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/04 16:10:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	lem_in_get_steps(t_lem_in_data *data, char **matrix,
 	i_tab = 0;
 	while (i_tab < n_paths && index < data->n_room)
 	{
-		while (!(((matrix[data->start][index] >> 1) & 3) == 3))
+		while (!(matrix[data->start][index] == 7))
 			index++;
-		room = index;
+		room = index++;
 		steps = 1;
 		while (room != data->end)
 		{
 			i = 0;
-			while (!(((matrix[room][i] >> 1) & 3) == 3))
+			while (!(matrix[room][i] == 7))
 				i++;
 			steps++;
 			room = i;
