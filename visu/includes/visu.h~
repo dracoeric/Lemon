@@ -1,0 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
+/*   Updated: 2019/02/05 21:49:33 by erli             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef VISU_H
+# define VISU_H
+
+# define B_SIZE 16364
+
+typedef	struct	s_room
+{
+	char	*room;
+	int		x;
+	int		y;
+}				t_room;
+
+typedef	struct	s_file
+{
+	char			*buf;
+	int				size;
+	struct s_file	*next;
+}				t_file;
+
+#endif
