@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in_draw_graph.c                                :+:      :+:    :+:   */
+/*   lem_in_draw_grad.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/31 12:48:45 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 17:28:02 by erli             ###   ########.fr       */
+/*   Created: 2019/02/05 17:21:06 by erli              #+#    #+#             */
+/*   Updated: 2019/02/05 17:53:02 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,30 @@ static	t_colour	lem_in_colour(int z)
 		return (mlx_str_to_colour("0x00ff3b3f"));
 }
 
-void				lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
-						t_mapcoord b)
+static	void		lem_in_draw_grad_2(t_lem_in_data *data,
+						t_mlxwin_ptr *mlxwin, int *dxy, int *dpxy)
+{
+	t_pixcoord		pix[2];
+
+	pix[0].px = GRAPH_BORDER;
+	pix[0].py = HEIGHT - GRAPH_BORDER + 20;
+	pix[0].pz = 6;
+	pix[1].px = GRAPH_BORDER;
+	pix[1].py = 20;
+	pix[1].pz = 6;
+	mlx_line_put(mlxwin, pix, pix + 1, &lem_in_colour);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, pix[1].px + 20,
+		pix[1].py + 20, mlx_str_to_colour("0x00ffffff"), "n_steps");
+	pix[0].px = GRAPH_BORDER + data->n_ant * dxy[0] / dpxy[0];
+	pix[0].py = HEIGHT - GRAPH_BORDER + 20;
+	pix[0].pz = 5;
+	pix[1].px = pix[0].px;
+	pix[1].py = 20;
+	pix[1].pz = 5;
+	mlx_line_put(mlxwin, pix, pix + 1, &lem_in_colour);
+}
+
+void				lem_in_draw_grad(t_lem_in_data *data)
 {
 	int				dxy[2];
 	int				dpxy[2];
@@ -59,11 +81,14 @@ void				lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 		dxy[1] = (HEIGHT - 3 * GRAPH_BORDER * ++(dpxy[1])) / data->n_ant;
 	mlxwin->mlx_ptr = data->mlx_ptr;
 	mlxwin->win_ptr = data->win_ptr;
-	pix[0].px = GRAPH_BORDER + a.mx * dxy[0] / dpxy[0];
-	pix[0].py = HEIGHT - GRAPH_BORDER - a.my * dxy[1] / dpxy[1];
-	pix[0].pz = a.mz;
-	pix[1].px = GRAPH_BORDER + b.mx * dxy[0] / dpxy[0];
-	pix[1].py = HEIGHT - GRAPH_BORDER - b.my * dxy[1] / dpxy[1];
-	pix[1].pz = b.mz;
+	pix[0].px = GRAPH_BORDER - 20;
+	pix[0].py = HEIGHT - GRAPH_BORDER;
+	pix[0].pz = 6;
+	pix[1].px = WIDTH - 20;
+	pix[1].py = HEIGHT - GRAPH_BORDER;
+	pix[1].pz = 6;
+	mlx_string_put(data->mlx_ptr, data->win_ptr, pix[1].px - 50,
+		pix[1].py + 7, mlx_str_to_colour("0x00ffffff"), "n_ant");
 	mlx_line_put(mlxwin, pix, pix + 1, &lem_in_colour);
+	lem_in_draw_grad_2(data, mlxwin, dxy, dpxy);
 }

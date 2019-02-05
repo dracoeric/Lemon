@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 15:44:10 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 15:26:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 11:38:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
 	elem->next = NULL;
 	if (!(tab = (int *)malloc(sizeof(int) * data->n_room)))
 		return (lem_in_free_then_abort(elem));
-	elem->path = tab;
 	if (dup != NULL)
 	{
 		elem->steps = dup->steps;
-		lem_in_dup_path(elem->path, dup->path, dup->steps);
+		lem_in_dup_path(tab, dup->path, dup->steps);
 	}
+	elem->path = tab;
 	*n_path += 1;
 	(elem->path)[elem->steps - 1] = room_id;
 	return (elem);

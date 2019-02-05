@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 17:36:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 17:50:41 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static	int		lem_in_draw_graph_lines(t_lem_in_data *data, int *tab,
 	double		b;
 	int			i;
 	t_mapcoord	map[2];
+	static	int	colour = 0;
 
-	lem_in_set_map_coord(map, 1, tab[0], 0);
+	lem_in_set_map_coord(map, 1, tab[0], colour);
 	a = 1.0;
 	b = (double)(tab[0] - 1);
 	i = 1;
@@ -36,14 +37,14 @@ static	int		lem_in_draw_graph_lines(t_lem_in_data *data, int *tab,
 	{
 		map[1].my = tab[i];
 		lem_in_draw_graph(data, map[0], map[1]);
-		lem_in_set_map_coord(map, map[1].mx, map[1].my, i);
+		lem_in_set_map_coord(map, map[1].mx, map[1].my, colour);
 		b = map[1].mx / (a * (a + 1.0)) + b;
 		a += 1.0;
 		map[1].mx += (tab[i + 1] - tab[i]) * a;
 		i++;
 	}
 	lem_in_set_map_coord(map + 1, data->n_ant,
-		(int)(data->n_ant / a + b), i);
+		(int)(data->n_ant / a + b), colour++);
 	lem_in_draw_graph(data, map[0], map[1]);
 	return (map[1].my);
 }
@@ -73,10 +74,10 @@ static	int		lem_in_eval_steps(t_lem_in_data *data, int *tab, int n_paths)
 
 int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 {
-	int		steps_old[n_paths - 1];
-	int		steps_new[n_paths];
-	int		n_steps;
-	int		n_steps_new;
+	int			steps_old[n_paths - 1];
+	int			steps_new[n_paths];
+	int			n_steps;
+	int			n_steps_new;
 
 	lem_in_get_steps(data, data->matrix_old, steps_old, n_paths - 1);
 	lem_in_get_steps(data, data->matrix, steps_new, n_paths);
@@ -84,7 +85,6 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 	ft_merge_sort_tab(steps_new, steps_new, n_paths);
 	n_steps = lem_in_eval_steps(data, steps_old, n_paths - 1);
 	n_steps_new = lem_in_eval_steps(data, steps_new, n_paths);
-	ft_printf("\n==== old vs new ====\n%d vs %d\n", n_steps, n_steps_new);
 	if (n_paths == 2)
 		data->max_steps = n_steps;
 	if (LI_OPT_GRAPH(data->options))

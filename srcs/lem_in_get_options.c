@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:35:17 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:12:47 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/05 16:20:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	lem_in_get_options(int argc, char **argv, t_lem_in_data *data)
 		else if (argv[i][1] == 'g' && argv[i][2] == '\0')
 			data->options = (data->options | 1 << 2);
 		else
-			return (ft_msg_int(2, "Abort, wrong option", -1));
+			return (ft_msg_int(2, "Abort, wrong option.\n", -1));
 		i++;
 	}
 	return (1);

@@ -6,14 +6,14 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 11:40:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 17:27:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-#include "mlxadd.h"
+# include "mlxadd.h"
 # include <stdlib.h>
 # include "libft.h"
 # include "get_next_line.h"
@@ -55,7 +55,9 @@ typedef struct	s_lem_in_data
 	int			n_room;
 	int			endroom;
 	int			options;
+	int			max_paths;
 	int			fd;
+	int			failed_malloc;
 	char		**anthill;
 	char		**matrix;
 	char		**matrix_old;
@@ -88,8 +90,8 @@ void			lem_in_trim_path(t_lem_in_data *data, t_path **list);
 int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
 						int *index);
 t_path			*lem_in_bfs_path(t_lem_in_data *data);
-int				lem_in_manage_node(t_lem_in_data *data, t_path **bubble,
-						int	*n_path);
+int				lem_in_manage_node(t_lem_in_data *data, t_path **list,
+						t_path **bubble, int *n_path);
 void			lem_in_add_flow(t_lem_in_data *data, int src, int dest);
 int				lem_in_algo(t_lem_in_data *data);
 void			lem_in_get_steps(t_lem_in_data *data, char **matrix,
@@ -97,23 +99,30 @@ void			lem_in_get_steps(t_lem_in_data *data, char **matrix,
 int				lem_in_test_opti(t_lem_in_data *data, int n_paths);
 void			lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 					t_mapcoord b);
-void			lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode);
+void			lem_in_draw_grad(t_lem_in_data *data);
+int				lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode);
 int				lem_in_magic_paths(t_lem_in_data *data, char **matrix,
 					t_path *paths, int max_paths);
 void			lem_in_print(t_lem_in_data *data, int ant_id, int room,
 					int end_of_line);
-
+int				lem_in_key(int key, void *arg);
+int				lem_in_close(void *arg);
 void			lem_in_print_data(t_lem_in_data *data);
 t_lem_in_data	*lem_in_parse(int argc, char **argv);
 int				lem_in_fill_file(char *line, t_file **file);
-int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data, t_parse **rooms, t_file *file);
+int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data,
+					t_parse **rooms, t_file *file);
 int				lem_in_atoi(char *str, int *d);
 int				lem_in_create_anthill_matrix(t_lem_in_data *data, t_parse *rooms);
 int				lem_in_parse_get_ants(char *line, t_lem_in_data *data);
-int				lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1, int tr2);
+int				lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1,
+					int tr2);
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
 void			lem_in_free_rooms(t_parse **rooms);
 void			lem_in_print_total_step(t_lem_in_data *data, int steps);
 void			lem_in_print_path(t_path *path);
+void			lem_in_print_file(t_lem_in_data *data);
 void			lem_in_free_data(t_lem_in_data **data);
+void			lem_in_free_path(t_path *path, int mode);
+
 #endif

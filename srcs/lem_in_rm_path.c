@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:38:32 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 19:34:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 13:55:52 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		lem_in_rm_path(t_path **list, int path_id)
 			bubble->next->previous = bubble->previous;
 		if (bubble == *list)
 			*list = (*list)->next;
+		bubble->path_id = -1;
 		free(bubble->path);
 		free(bubble);
 	}

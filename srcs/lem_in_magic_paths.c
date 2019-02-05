@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 18:22:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 17:20:45 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 13:40:12 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static	int		lem_in_init_paths(t_path *paths, int max_paths)
 	i = 0;
 	while (i < max_paths)
 	{
-		if (!(paths[i].occupants = (int *)malloc(sizeof(int) * paths->steps)))
+		if (!(paths[i].occupants = (int *)malloc(sizeof(int) * paths[i].steps)))
 			return (ft_msg_int(2, "Abort, failed malloc.\n", -2));
-		ft_bzero(paths[i].occupants, sizeof(int) * paths->steps);
-		if (!(paths[i].path = (int *)malloc(sizeof(int) * paths->steps)))
+		ft_bzero(paths[i].occupants, sizeof(int) * paths[i].steps);
+		if (!(paths[i].path = (int *)malloc(sizeof(int) * paths[i].steps)))
 		{
 			free(paths[i].occupants);
 			return (ft_msg_int(2, "Abort, failed malloc.\n", -2));
 		}
-		ft_bzero(paths[i].path, sizeof(int) * paths->steps);
+		ft_bzero(paths[i].path, sizeof(int) * paths[i].steps);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 18:54:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/05 17:20:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 	i = 0;
 	while (i < max_paths && old_is_better == 0)
 	{
-		ft_printf("i = %d\n", i);
 		shortest_path = lem_in_bfs_path(data);
 		if (shortest_path == 0)
 			max_paths = i;
@@ -66,13 +65,36 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 		i++;
 		if (i > 1 && shortest_path != 0)
 			old_is_better = lem_in_test_opti(data, i);
+		if (shortest_path != 0)
+			lem_in_free_path(shortest_path, 0);
 	}
-	if (i == 0)
+	if (data->failed_malloc == 1 || i == 0)
 		return (-1);
-	if (old_is_better == 1)
-		lem_in_send_ants(data, i - 1, 1);
-	else
-		lem_in_send_ants(data, max_paths, 0);
+	lem_in_print_file(data);
+	return (lem_in_send_ants(data,
+			(old_is_better == 1 ? i - 1 : max_paths), old_is_better));
+}
+
+static	int		lem_in_hook(void *arg)
+{
+	t_lem_in_data	*data;
+	int				ret;
+
+	if (arg == 0)
+		return (0);
+	data = (t_lem_in_data *)arg;
+	if (data->max_paths > 0)
+	{
+		ret = lem_in_draw_paths(data, data->max_paths);
+		if (ret == -1)
+		{
+			lem_in_free_data(&data);
+			exit(0);
+		}
+		else
+			data->max_paths = -1;
+		lem_in_draw_grad(data);
+	}
 	return (0);
 }
 
@@ -80,12 +102,27 @@ int				lem_in_algo(t_lem_in_data *data)
 {
 	int		start_out;
 	int		end_in;
-	int		max_paths;
 
+	data->fd = 1;
+	data->failed_malloc = 0;
+	data->win_ptr = 0;
 	start_out = lem_in_count_channel(data, data->start);
 	end_in = lem_in_count_channel(data, data->end);
-	max_paths = (start_out < end_in ? start_out : end_in);
-	if (max_paths == 0 || lem_in_draw_paths(data, max_paths) == -1)
+	data->max_paths = (start_out < end_in ? start_out : end_in);
+	if (data->max_paths > 0 && LI_OPT_GRAPH(data->options))
+	{
+		if (!(data->mlx_ptr = mlx_init()))
+			return (ft_msg_int(2, "Failed to init X-server\n", -1));
+		if (!(data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT,
+				"Optimisation graph")))
+			return (ft_msg_int(2, "Failed to create window\n", -1));
+		mlx_loop_hook(data->mlx_ptr, &lem_in_hook, data);
+		mlx_hook(data->win_ptr, 17, (1L << 17), &lem_in_close, (void *)NULL);
+		mlx_hook(data->win_ptr, 2, (1L << 0), &lem_in_key, data);
+		mlx_loop(data->mlx_ptr);
+	}
+	else if (data->max_paths == 0
+		|| lem_in_draw_paths(data, data->max_paths) == -1)
 		return (-1);
 	return (0);
 }

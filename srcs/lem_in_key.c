@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in_print_path.c                                :+:      :+:    :+:   */
+/*   lem_in_close.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 14:53:27 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 13:55:36 by erli             ###   ########.fr       */
+/*   Created: 2019/02/05 16:14:38 by erli              #+#    #+#             */
+/*   Updated: 2019/02/05 17:17:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		lem_in_print_path(t_path *path)
+int			lem_in_key(int key, void *arg)
 {
-	ft_printf("=======printing path==========\n");
-	if (path == 0)
+	t_lem_in_data *data;
+
+	if (arg == 0)
+		return (0);
+	data = (t_lem_in_data *)arg;
+	if (key == 53)
 	{
-		ft_printf("list is empty\n");
-		return ;
+		lem_in_free_data(&data);
+		exit(0);
 	}
-	while (path != 0)
-	{
-		ft_printf("path %d\nsteps = %d\n, path = %td\n", path->path_id,
-			path->steps, path->path, path->steps);
-		path = path->next;
-	}
+	return (0);
 }

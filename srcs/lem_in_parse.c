@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:20:26 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/05 14:49:24 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	data->n_ant = 0;
 	data->n_room = 0;
-	data->fd = 0;
+	data->fd = 1;
 	data->endroom = 0;
 	data->start = -1;
 	data->end = -1;
