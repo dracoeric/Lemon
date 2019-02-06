@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 17:50:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 09:47:05 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static	int		lem_in_draw_graph_lines(t_lem_in_data *data, int *tab,
 	lem_in_set_map_coord(map, 1, tab[0], colour);
 	a = 1.0;
 	b = (double)(tab[0] - 1);
-	i = 1;
+	i = 0;
 	map[1].mx = (n_paths == 1 ? 0 : 1 + tab[1] - tab[0]);
 	while (i + 1 < n_paths && data->n_ant > map[1].mx)
 	{
