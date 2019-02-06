@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 18:49:49 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 19:55:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,15 @@ static	int	visu_create_matrix(t_visu_data *data)
 {
 	int	i;
 
-	if (!(data->matrix = (char **)malloc(sizeof(char *) * (data->n_room + 1))))
-		return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
-	if (!(data->matrix_old = (char **)malloc(sizeof(char *)\
-					* (data->n_room + 1))))
+	if (!(data->matrix = (int **)malloc(sizeof(int *) * data->n_room)))
 		return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
 	i = 0;
 	while (i < data->n_room)
 	{
-		data->matrix[i] = ft_strnew(data->n_room);
-		data->matrix_old[i] = ft_strnew(data->n_room);
-		if (data->matrix[i] == NULL || data->matrix_old[i] == NULL)
+		if (!(data->matrix[i] = (int *)malloc(sizeof(int) * data->n_room)))
 			return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
 		i++;
 	}
-	data->matrix[data->n_room] = NULL;
-	data->matrix_old[data->n_room] = NULL;
 	return (0);
 }
 
@@ -44,7 +37,7 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 	data->endroom = 1;
 	if (data->start != 2 || data->end != 2)
 		return (ft_msg_int(2, "Abort, no end or no start", -2));
-	if (!(data->anthill = (t_room *)malloc(sizeof(t_room) * (data->n_room + 1))))
+	if (!(data->anthill = (t_room *)malloc(sizeof(t_room) * data->n_room)))
 		return (ft_msg_int(2, "Abort, failed malloc create anthill", -2));
 	tmp = rooms;
 	i = 0;
@@ -60,6 +53,5 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 		i++;
 		tmp = tmp->next;
 	}
-	data->anthill[data->n_room] = NULL;
 	return (visu_create_matrix(data));
 }

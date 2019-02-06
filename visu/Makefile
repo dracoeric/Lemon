@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/06 18:51:40 by erli             ###   ########.fr        #
+#    Updated: 2019/02/06 19:58:13 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,7 +18,8 @@ OBJSDIR		=		./objs
 SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 					visu_free_data.c	visu_fill_file.c	visu_parse_get_ants.c	\
 					visu_atoi.c		visu_parse_get_rooms.c	visu_parse_get_links.c	\
-					visu_create_anthill_matrix.c			
+					visu_create_anthill_matrix.c			visu_print_data.c		\
+					visu_parse_edit_new_room.c				visu_free_parse.c		\
 
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
@@ -27,7 +28,7 @@ CC			=		gcc -g
 
 CFLAG		=		-Wall -Werror -Wextra
 
-INCL		=		-I includes/ -I libft/includes/
+INCL		=		-I includes/ -I ../libft/includes/
 
 RM			=		rm -f
 

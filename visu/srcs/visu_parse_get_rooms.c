@@ -6,13 +6,13 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 18:03:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 19:38:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-char	*visu_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)
+static	char	*visu_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)
 {
 	t_file	*tmpfile;
 	int		i;
@@ -37,8 +37,8 @@ char	*visu_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)
 	return (tmpfile->buff + tmpfile->size - (len + 1));
 }
 
-int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,\
-		t_parse *new, int *tr)
+static	int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,
+					t_parse *new, int *tr)
 {
 	int min;
 
@@ -61,7 +61,7 @@ int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,\
 	return (1);
 }
 
-int		visu_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
+static	int		visu_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
 {
 	t_parse	*tmp;
 	t_parse	*tmp2;
@@ -88,8 +88,8 @@ int		visu_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
 	return (1);
 }
 
-int		visu_parse_get_rooms_create(char *line, t_visu_data *data,\
-		t_parse **rooms, t_file *file)
+static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
+					t_parse **rooms, t_file *file)
 {
 	t_parse	*new;
 	int		len;
@@ -102,15 +102,8 @@ int		visu_parse_get_rooms_create(char *line, t_visu_data *data,\
 	new->name = visu_parse_get_rooms_ptr(file, len, &nbuff);
 	new->n_buff = nbuff;
 	new->next = NULL;
-	new->state = data->start == 1 ? 1 : 0;
-	new->state = data->end == 1 ? 2 : new->state;
-	data->start = data->start == 1 ? 2 : data->start;
-	data->end = data->end == 1 ? 2 : data->end;
-	data->n_room = data->n_room + 1;
-	len = 1;
-	while (line[len] != ' ')
-		len++;
-	new->size = len;
+	if (visu_parse_edit_new_room(line, data, new, len) < 0)
+		return (ft_msg_int(2, "Invalid coordinates\n", -1));
 	if (*rooms == NULL)
 		*rooms = new;
 	else
@@ -118,8 +111,8 @@ int		visu_parse_get_rooms_create(char *line, t_visu_data *data,\
 	return (1);
 }
 
-int		visu_parse_get_rooms(char *l, t_visu_data *data, t_parse **rooms,\
-		t_file *file)
+int				visu_parse_get_rooms(char *l, t_visu_data *data, t_parse **rooms,
+					t_file *file)
 {
 	int	i;
 	int	tr;

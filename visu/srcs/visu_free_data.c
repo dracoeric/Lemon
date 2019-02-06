@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:37:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 18:49:03 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 19:51:44 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static	void	visu_free_tabint(int **tab)
 	free(tab);
 }
 
-static	void	visu_free_rooms(t_rooms *rooms, int n)
+static	void	visu_free_rooms(t_room *rooms, int n)
 {
 	int i;
 
@@ -69,8 +69,8 @@ void			visu_free_data(t_visu_data **data)
 {
 	if (data != NULL)
 	{
-		visu_free_file(data->file);
-		visu_free_rooms((*data)->anthill);
+		visu_free_file(&((*data)->file));
+		visu_free_rooms((*data)->anthill, (*data)->n_room);
 		visu_free_tabint((*data)->matrix);
 		if ((*data)->win_ptr != 0)
 			mlx_destroy_window((*data)->mlx_ptr, (*data)->win_ptr);
