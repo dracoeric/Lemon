@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:13:51 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 15:05:39 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 16:39:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int				lem_in_send_ants(t_lem_in_data *data, int max_paths, int mode)
 		return (-2);
 	ft_merge_sort_tab(steps, steps, max_paths);
 	lem_in_get_limits(data, steps, max_paths);
+	lem_in_print_path(data, paths, limits, max_paths);
 	lem_in_move_ants(data, paths, max_paths);
 	i = 0;
 	while (i < max_paths)

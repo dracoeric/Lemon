@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 17:20:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 15:53:36 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 		else
 			lem_in_add_path_flow(data, shortest_path);
 		i++;
+		lem_in_unload_ants(data, shortest_path);
 		if (i > 1 && shortest_path != 0)
 			old_is_better = lem_in_test_opti(data, i);
 		if (shortest_path != 0)
@@ -103,7 +104,6 @@ int				lem_in_algo(t_lem_in_data *data)
 	int		start_out;
 	int		end_in;
 
-	data->fd = 1;
 	data->failed_malloc = 0;
 	data->win_ptr = 0;
 	start_out = lem_in_count_channel(data, data->start);

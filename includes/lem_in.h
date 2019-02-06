@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 17:27:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 17:12:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define HEIGHT 720
 # define GRAPH_BORDER 50
 # define B_SIZE 16364
+# define OUTPUT_PATH "lem_in_output.txt"
 # define LI_CONNECTED(data, i, j) ((data->matrix)[i][j] & 1) == 1
 # define LI_FLOW(data, i, j) (((data->matrix)[i][j] >> 1) & 1) == 1
 # define LI_POS_FLOW(data, i, j) (((data->matrix)[i][j] >> 2) & 1) == 1
@@ -29,6 +30,7 @@
 # define LI_OPT_OUT(x) ((x & 1) == 1)
 # define LI_OPT_STEPS(x) (((x >> 1) & 1) == 1)
 # define LI_OPT_GRAPH(x) (((x >> 2) & 1) == 1)
+# define LI_OPT_PATHS(x) (((x >> 3) & 1) == 1)
 
 typedef	struct	s_file
 {
@@ -43,7 +45,7 @@ typedef	struct	s_parse
 	int				size;
 	int				n_buff;
 	int				state;
-	struct	s_parse	*next;
+	struct s_parse	*next;
 }				t_parse;
 
 typedef struct	s_lem_in_data
@@ -70,7 +72,6 @@ typedef struct	s_lem_in_data
 	int			max_steps;
 }				t_lem_in_data;
 
-
 typedef	struct	s_path
 {
 	int				path_id;
@@ -81,6 +82,7 @@ typedef	struct	s_path
 	struct s_path	*previous;
 }				t_path;
 
+void			lem_in_manage_output(t_lem_in_data *data);
 t_path			*lem_in_create_path(t_lem_in_data *data, int room_id,
 						int *n_path, t_path *dup);
 void			lem_in_path_add(t_path **list, t_path *path);
@@ -113,14 +115,17 @@ int				lem_in_fill_file(char *line, t_file **file);
 int				lem_in_parse_get_rooms(char *line, t_lem_in_data *data,
 					t_parse **rooms, t_file *file);
 int				lem_in_atoi(char *str, int *d);
-int				lem_in_create_anthill_matrix(t_lem_in_data *data, t_parse *rooms);
+int				lem_in_create_anthill_matrix(t_lem_in_data *data,
+					t_parse *rooms);
 int				lem_in_parse_get_ants(char *line, t_lem_in_data *data);
 int				lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1,
 					int tr2);
 int				lem_in_get_options(int argc, char **argv, t_lem_in_data *data);
 void			lem_in_free_rooms(t_parse **rooms);
 void			lem_in_print_total_step(t_lem_in_data *data, int steps);
-void			lem_in_print_path(t_path *path);
+void			lem_in_print_path(t_lem_in_data *data, t_path *path,
+					int *limits, int max_paths);
+void			lem_in_unload_ants(t_lem_in_data *data, t_path *path);
 void			lem_in_print_file(t_lem_in_data *data);
 void			lem_in_free_data(t_lem_in_data **data);
 void			lem_in_free_path(t_path *path, int mode);

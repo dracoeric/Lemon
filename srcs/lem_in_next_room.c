@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:28:32 by erli              #+#    #+#             */
-/*   Updated: 2019/02/04 19:05:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/06 10:06:39 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ static	int		lem_in_is_previous(t_lem_in_data *data, t_path *path,
 {
 	int i;
 
-	i = 0;
 	if (path == 0)
 		return (0);
 	if (path->steps == 1 && room_candidat == data->start)
 		return (1);
 	if (path->steps < 2)
 		return (0);
-	while (i < path->steps - 1)
+	i = path->steps - 2;
+	while (i >= 0)
 	{
 		if ((path->path)[i] == room_candidat)
 			return (1);
-		i++;
+		i--;
 	}
 	return (0);
 }
