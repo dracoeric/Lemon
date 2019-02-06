@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visu.h                                             :+:      :+:    :+:   */
+/*   visu_free_parse.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
-/*   Updated: 2019/02/05 21:49:33 by erli             ###   ########.fr       */
+/*   Created: 2019/02/06 18:44:35 by erli              #+#    #+#             */
+/*   Updated: 2019/02/06 18:45:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VISU_H
-# define VISU_H
+#include "visu.h"
 
-# define B_SIZE 16364
-
-typedef	struct	s_room
+void	visu_free_parse(t_parse **rooms)
 {
-	char	*room;
-	int		x;
-	int		y;
-}				t_room;
+	t_parse	*tmp;
 
-typedef	struct	s_file
-{
-	char			*buf;
-	int				size;
-	struct s_file	*next;
-}				t_file;
-
-#endif
+	tmp = *rooms;
+	if (rooms == NULL || *rooms == NULL)
+		return ;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		free(*rooms);
+		*rooms = NULL;
+		*rooms = tmp;
+	}
+	return ;
+}

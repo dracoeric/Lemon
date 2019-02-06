@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/05 21:38:50 by erli             ###   ########.fr        #
+#    Updated: 2019/02/06 18:51:40 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,11 @@ NAME		=		visu
 SRCSDIR		=		./srcs
 OBJSDIR		=		./objs
 
-SRCS		=		main.c
+SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
+					visu_free_data.c	visu_fill_file.c	visu_parse_get_ants.c	\
+					visu_atoi.c		visu_parse_get_rooms.c	visu_parse_get_links.c	\
+					visu_create_anthill_matrix.c			
+
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
@@ -29,23 +33,23 @@ RM			=		rm -f
 
 FRAMEWORK	=		-framework OpenGL -framework AppKit
 
-LIB			=		libft/libft.a
+LIB			=		../libft/libft.a
 
-LIBMLX		=		minilibx_macos/libmlx.a
+LIBMLX		=		../minilibx_macos/libmlx.a
 
 all			:		$(NAME)
 
-$(NAME)		:		$(OBJS) $(LIB) $(LIBMLX) includes/lem_in.h
+$(NAME)		:		$(OBJS) $(LIB) $(LIBMLX) includes/visu.h
 					$(CC) $(CFLAG) $(INCL) $(OBJS) $(LIB) $(LIBMLX) $(FRAMEWORK) \
 					-o $(NAME)
 
 $(LIB)		:		
-					make -C libft/
+					make -C ../libft/
 
 $(LIBMLX)	:
-					make -C minilibx_macos/
+					make -C ../minilibx_macos/
 
-$(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c includes/lem_in.h
+$(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c includes/visu.h
 					@mkdir -p $(OBJSDIR)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
