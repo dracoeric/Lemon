@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:37:44 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 19:57:16 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 11:32:20 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ static	int		visu_get_coord(char *str, int *coord, int *i)
 	{
 		if (pow == 9 && visu_nb_is_int(nb, str, i, sgn) < 0)
 			return (-1);
-		nb = (10 * nb) + str[*i] + '0';
+		nb = (10 * nb) + str[*i] - '0';
 		pow = (nb != 0 ? pow + 1 : pow);
 		*i += 1;
 	}
-	*coord = nb;
+	*coord = nb * sgn;
 	return (1);
 }
 
@@ -67,11 +67,14 @@ int				visu_parse_edit_new_room(char *line, t_visu_data *data,
 		len++;
 	new->size = len;
 	len++;
-	if (visu_get_coord(line, &coord, &len) < 0)
-		return (-1);
-	new->x = coord;
-	if (visu_get_coord(line, &coord, &len) < 0)
-		return (-1);
-	new->y = coord;
+	if (!VI_OPT_COORD(data->options))
+	{
+		if (visu_get_coord(line, &coord, &len) < 0)
+			return (-1);
+		new->x = coord;
+		if (visu_get_coord(line, &coord, &len) < 0)
+			return (-1);
+		new->y = coord;
+	}
 	return (0);
 }

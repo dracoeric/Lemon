@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 19:50:16 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 15:45:38 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,23 @@
 # include "libft.h"
 # include <stdlib.h>
 
+# define WIDTH 2160
+# define HEIGHT 1440
 # define B_SIZE 16364
+# define HIST_SIZE 100
+# define VI_OPT_COORD(x) ((x & 1) == 1)
+# define VI_PLAY_FORWARD(x) ((x & 1) == 1)
+# define VI_PLAY_BACKWARD(x) (((x >> 1) & 1) == 1)
+# define VI_PLAY_AUTO(x) (((x >> 2) & 1) == 1)
+
+typedef struct	s_ant
+{
+	int				id;
+	short			pheromon;
+	int				location;
+	char			moved;
+	struct s_ant	*next;
+}				t_ant;
 
 typedef	struct	s_room
 {
@@ -56,15 +72,28 @@ typedef	struct	s_visu_data
 	int		min_x;
 	int		min_y;
 	int		options;
+	char	*history[HIST_SIZE];
+	int		cursor;
+	char	play_param;
 	t_file	*file;
 	t_room	*anthill;
 	int		**matrix;
+	t_ant	*ants;
+	int		current_pheromon;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
+	int		bpp;
+	int		bypp;
+	int		size_line;
+	int		nb_line;
+	int		endian;
+	char	*img_str;
 }				t_visu_data;
 
+t_visu_data		*visu_init_data(void);
+int				visu_init_visu(t_visu_data *data);
 int				visu_atoi(char *str, int *d);
 int				visu_create_anthill_matrix(t_visu_data *data,
 					t_parse *rooms);
@@ -80,5 +109,12 @@ int				visu_parse_get_rooms(char *line, t_visu_data *data,
 					t_parse **rooms, t_file *file);
 int				visu_parse_edit_new_room(char *line, t_visu_data *data,
 					t_parse *new, int len);
+int				visu_check_room_coord(t_visu_data *data, t_parse *rooms,
+					t_parse *new);
 void			visu_print_data(t_visu_data *data);
+int				visu_get_instructions(t_visu_data *data);
+t_room			*visu_rec_search(t_room *anthill, char *name, int i, int j);
+int				visu_do_instructions(t_visu_data *data, char *line);
+int				visu_check_instructions(t_visu_data *data, char *line);
+
 #endif

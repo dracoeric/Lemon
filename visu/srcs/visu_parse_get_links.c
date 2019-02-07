@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:13:08 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 19:52:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 11:44:36 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static	int	visu_parse_get_links_matrix(t_visu_data *data, int tr1, int tr2)
 	return (1);
 }
 
-int			visu_parse_get_links(char *line, t_visu_data *data, int tr1, int tr2)
+int			visu_parse_get_links(char *line, t_visu_data *data, int tr1,
+				int tr2)
 {
 	int	i;
 	int	b;

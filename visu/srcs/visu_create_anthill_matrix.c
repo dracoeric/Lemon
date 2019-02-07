@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 19:55:15 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 13:15:42 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,19 @@ static	int	visu_create_matrix(t_visu_data *data)
 	{
 		if (!(data->matrix[i] = (int *)malloc(sizeof(int) * data->n_room)))
 			return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
+		ft_bzero(data->matrix[i], sizeof(int) * data->n_room);
 		i++;
 	}
+	return (0);
+}
+
+static	int	visu_copy_from_room(t_room *anthill, t_parse *room, int i)
+{
+	anthill[i].name = ft_strsub(room->name, 0, room->size);
+	if (anthill[i].name == 0)
+		return (-2);
+	anthill[i].x = room->x;
+	anthill[i].y = room->y;
 	return (0);
 }
 
@@ -43,7 +54,7 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 	i = 0;
 	while (tmp != NULL)
 	{
-		if (!(data->anthill[i].name = ft_strsub(tmp->name, 0, tmp->size)))
+		if (visu_copy_from_room(data->anthill, tmp, i) == -2)
 			return (ft_msg_int(2, "Abort, failed malloc create anthill", -2));
 		if (tmp->state != 0)
 		{

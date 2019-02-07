@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:37:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 19:51:44 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 15:31:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	void	visu_free_file(t_file **file)
 	}
 }
 
-static	void	visu_free_tabint(int **tab)
+static	void	visu_free_tabint(int **tab, int n)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static	void	visu_free_tabint(int **tab)
 		return ;
 	}
 	i = 0;
-	while (tab[i] != NULL)
+	while (i < n)
 	{
 		free(tab[i]);
 		i++;
@@ -67,13 +67,20 @@ static	void	visu_free_rooms(t_room *rooms, int n)
 
 void			visu_free_data(t_visu_data **data)
 {
+	int i;
+
 	if (data != NULL)
 	{
 		visu_free_file(&((*data)->file));
 		visu_free_rooms((*data)->anthill, (*data)->n_room);
-		visu_free_tabint((*data)->matrix);
+		visu_free_tabint((*data)->matrix, (*data)->n_room);
 		if ((*data)->win_ptr != 0)
 			mlx_destroy_window((*data)->mlx_ptr, (*data)->win_ptr);
+		if ((*data)->img_ptr != 0)
+			mlx_destroy_image((*data)->mlx_ptr, (*data)->img_ptr);
+		i = 0;
+		while (i < 100 && (*data)->history[i] != NULL)
+			free((*data)->history[i++]);
 		free(*data);
 		*data = NULL;
 	}

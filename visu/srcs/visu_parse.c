@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 18:50:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 13:13:09 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static	int			visu_parse_line(char *line, t_visu_data *data,\
 	int	tr;
 
 	tr = 1;
+	if (ft_strlen(line) == 0) //arreter la lecture apres les pipes//
+		return (2);
 	if (visu_fill_file(line, file) < 0)
 		return (-1);
 	if (line[0] != '#')
@@ -53,9 +55,7 @@ static	int			visu_parse_line(char *line, t_visu_data *data,\
 		if (data->start == -2 || data->end == -2)
 			return (ft_msg_int(2, "Abort, double start or end input", -1));
 	}
-	if (tr < 0)
-		return (tr);
-	return (1);
+	return (tr < 0 ? tr : 1);
 }
 
 static	void		visu_delete_last_entry_file(t_file **file, char *line)
@@ -112,16 +112,7 @@ t_visu_data			*visu_parse(int argc, char **argv)
 	int			tr;
 
 	tr = 1;
-	if (!(data = (t_visu_data *)malloc(sizeof(t_visu_data) * 1)))
-		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
-	data->n_ant = 0;
-	data->n_room = 0;
-	data->endroom = 0;
-	data->start = -1;
-	data->end = -1;
-	data->options = 0;
-	data->anthill = NULL;
-	data->matrix = NULL;
+	data = visu_init_data();
 	if (argc > 1)
 		tr = visu_get_options(argc, argv, data);
 	if (tr > 0)

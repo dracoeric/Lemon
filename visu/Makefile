@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/06 19:58:13 by erli             ###   ########.fr        #
+#    Updated: 2019/02/07 14:53:14 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,10 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 					visu_atoi.c		visu_parse_get_rooms.c	visu_parse_get_links.c	\
 					visu_create_anthill_matrix.c			visu_print_data.c		\
 					visu_parse_edit_new_room.c				visu_free_parse.c		\
-
+					visu_check_room_coord.c					visu_init_data.c		\
+					visu_init_visu.c						visu_get_instructions.c	\
+					visu_check_instructions.c				visu_rec_search.c		\
+					visu_do_instructions.c
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 

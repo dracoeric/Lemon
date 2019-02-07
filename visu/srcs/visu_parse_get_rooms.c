@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 19:38:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 11:43:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ static	int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,
 	return (1);
 }
 
-static	int		visu_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
+static	int		visu_parse_get_rooms_place_room(t_visu_data *data,
+					t_parse **rooms, t_parse *new)
 {
 	t_parse	*tmp;
 	t_parse	*tmp2;
 	int		tr;
 
+	if (visu_check_room_coord(data, *rooms, new) == -1)
+		return (-1);
 	tr = 1;
 	tmp = *rooms;
 	tmp2 = NULL;
@@ -107,12 +110,12 @@ static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
 	if (*rooms == NULL)
 		*rooms = new;
 	else
-		return (visu_parse_get_rooms_place_room(rooms, new));
+		return (visu_parse_get_rooms_place_room(data, rooms, new));
 	return (1);
 }
 
-int				visu_parse_get_rooms(char *l, t_visu_data *data, t_parse **rooms,
-					t_file *file)
+int				visu_parse_get_rooms(char *l, t_visu_data *data,
+					t_parse **rooms, t_file *file)
 {
 	int	i;
 	int	tr;

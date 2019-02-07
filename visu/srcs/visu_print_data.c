@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 19:56:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 11:43:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ static	void	print_matrix(t_visu_data *data, int **matrix)
 		j = 0;
 		while (j < data->n_room)
 		{
-			ft_printf("%d ", matrix[i][j]);
 			if (matrix[i][j] != 0)
+			{
 				count++;
+				ft_printf("\x1B[35m%d \x1B[0m", matrix[i][j]);
+			}
+			else
+				ft_printf("%d ", matrix[i][j]);
 			j++;
 		}
 		write(1, "\n", 1);
@@ -42,15 +46,15 @@ static	void	visu_print_anthill(t_visu_data *data)
 	int i;
 
 	i = 0;
-	ft_putstr("[");
+	ft_putstr("\nanthill :\n[");
 	while (i < data->n_room)
 	{
-		ft_printf("%s %d %d", data->anthill[i].name, data->anthill[i].x,
-			data->anthill[i].y);
+		ft_printf("\x1B[32m%s \x1B[0m(%d, %d)", data->anthill[i].name,
+			data->anthill[i].x, data->anthill[i].y);
 		if (i < data->n_room - 1)
-			ft_putstr(", ");
+			ft_putstr("; ");
 		else
-			ft_putstr("]");
+			ft_putstr("]\n");
 		i++;
 	}
 }
@@ -66,7 +70,7 @@ void			visu_print_data(t_visu_data *data)
 		visu_print_anthill(data);
 	if (data->matrix != 0)
 	{
-		ft_printf("matrix:\n");
+		ft_printf("\nmatrix:\n");
 		print_matrix(data, data->matrix);
 	}
 }
