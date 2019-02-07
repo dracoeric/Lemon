@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 15:45:38 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 17:43:29 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 # define VI_PLAY_FORWARD(x) ((x & 1) == 1)
 # define VI_PLAY_BACKWARD(x) (((x >> 1) & 1) == 1)
 # define VI_PLAY_AUTO(x) (((x >> 2) & 1) == 1)
+# define VI_PHER_BLANK(data, i, j) ((data->matrix[i][j] >> 1) == 0)
 
 typedef struct	s_ant
 {
 	int				id;
-	short			pheromon;
+	int				pheromon;
 	int				location;
 	char			moved;
 	struct s_ant	*next;
@@ -40,6 +41,7 @@ typedef	struct	s_room
 	char	*name;
 	int		x;
 	int		y;
+	int		occupants;
 }				t_room;
 
 typedef struct	s_parse
@@ -79,6 +81,7 @@ typedef	struct	s_visu_data
 	t_room	*anthill;
 	int		**matrix;
 	t_ant	*ants;
+	int		*pioneers;
 	int		current_pheromon;
 
 	void	*mlx_ptr;
@@ -113,8 +116,9 @@ int				visu_check_room_coord(t_visu_data *data, t_parse *rooms,
 					t_parse *new);
 void			visu_print_data(t_visu_data *data);
 int				visu_get_instructions(t_visu_data *data);
-t_room			*visu_rec_search(t_room *anthill, char *name, int i, int j);
+int				visu_rec_search(t_room *anthill, char *name, int i, int j);
 int				visu_do_instructions(t_visu_data *data, char *line);
 int				visu_check_instructions(t_visu_data *data, char *line);
-
+int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,
+					int len);
 #endif

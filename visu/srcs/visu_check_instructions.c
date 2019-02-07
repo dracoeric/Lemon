@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 14:01:12 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 15:35:55 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 16:11:27 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static	int	visu_check_real_room(t_visu_data *data, char *line, int i, int len)
 
 	ft_strncpy(name, line + i, len);
 	name[len] = '\0';
-	if (!(visu_rec_search(data->anthill, name, 0, data->n_room - 1)))
+	if (visu_rec_search(data->anthill, name, 0, data->n_room - 1) < 0)
 		return (-1);
 	return (1);
 }

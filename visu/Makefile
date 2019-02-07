@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/07 14:53:14 by erli             ###   ########.fr        #
+#    Updated: 2019/02/07 17:43:41 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,7 +23,8 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 					visu_check_room_coord.c					visu_init_data.c		\
 					visu_init_visu.c						visu_get_instructions.c	\
 					visu_check_instructions.c				visu_rec_search.c		\
-					visu_do_instructions.c
+					visu_do_instructions.c					visu_manage_ants.c		\
+
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 

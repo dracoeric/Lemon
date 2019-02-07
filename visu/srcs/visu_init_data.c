@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:50:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 15:30:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/07 17:19:18 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_visu_data			*visu_init_data(void)
 	data->anthill = NULL;
 	data->matrix = NULL;
 	data->ants = NULL;
+	data->explorers = NULL;
 	data->current_pheromon = 0;
 	data->cursor = -1;
 	visu_init_data2(data);
