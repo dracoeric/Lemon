@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:53:08 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 13:31:09 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:37:31 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static	t_colour	visu_colour2(int z)
 {
-	if (((z >> 11) & 1) == 1)
+	if (((z >> 10) & 1) == 1)
 		return (mlx_str_to_colour("0x00eca190"));
+	else if (((z >> 11) & 1) == 1)
+		return (mlx_str_to_colour("0x00ff3b3f"));
 	else if (((z >> 12) & 1) == 1)
 		return (mlx_str_to_colour("0x003cb371"));
 	else if (((z >> 13) & 1) == 1)
@@ -28,7 +30,9 @@ static	t_colour	visu_colour2(int z)
 
 static	t_colour	visu_colour(int z)
 {
-	if (z << 20)
+	if (z == 0)
+		return (mlx_str_to_colour("0x00ce9178"));
+	else if (((z >> 20) & 1) == 1)
 		return (mlx_str_to_colour("0x00000000"));
 	else if ((z & 1) == 1)
 		return (mlx_str_to_colour("0x00af00af"));
@@ -37,7 +41,7 @@ static	t_colour	visu_colour(int z)
 	else if (((z >> 2) & 1) == 1)
 		return (mlx_str_to_colour("0x00ff8484"));
 	else if (((z >> 3) & 1) == 1)
-		return (mlx_str_to_colour("0x0000afff"));
+		return (mlx_str_to_colour("0x0000ff00"));
 	else if (((z >> 4) & 1) == 1)
 		return (mlx_str_to_colour("0x00ff5f00"));
 	else if (((z >> 5) & 1) == 1)
@@ -50,8 +54,6 @@ static	t_colour	visu_colour(int z)
 		return (mlx_str_to_colour("0x0000d3df"));
 	else if (((z >> 9) & 1) == 1)
 		return (mlx_str_to_colour("0x00f1be13"));
-	else if (((z >> 10) & 1) == 1)
-		return (mlx_str_to_colour("0x00ff3b3f"));
 	return (visu_colour2(z));
 }
 

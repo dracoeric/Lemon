@@ -6,11 +6,12 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 13:58:57 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 13:53:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 16:57:34 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
+#include <unistd.h>
 
 static	int		visu_close(void *arg)
 {
@@ -32,30 +33,37 @@ static	int		visu_loop_hook(void *arg)
 	data = (t_visu_data *)arg;
 	if (!VI_PLAY_AUTO(data->play_param))
 		return (0);
-	visu_get_instructions(data);
+	if (visu_get_instructions(data) < 0)
+	{
+		visu_free_data(&data);
+		exit(0);
+	}
+	sleep(1);
 	return (0);
 }
 
 static	int		visu_key(int key, void *arg)
 {
 	t_visu_data *data;
+	int			ret;
 
+	ret = 0;
 	if (arg == 0)
 		return (0);
 	data = (t_visu_data *)arg;
 	if (key == 9)
 		data->play_param = ((1 << 2) | 1);
-	if (key == 11)
+	else if (key == 11)
 	{
 		data->play_param = (1 << 1);
-		visu_get_instructions(data);
+		ret = visu_get_instructions(data);
 	}
-	if (key == 49)
+	else if (key == 49)
 	{
 		data->play_param = 1;
-		visu_get_instructions(data);
+		ret = visu_get_instructions(data);
 	}
-	if (key == 53)
+	if (key == 53 || ret < 0)
 	{
 		visu_free_data(&data);
 		exit(0);
@@ -82,12 +90,14 @@ int				main(int argc, char **argv)
 
 	data = NULL;
 	data = visu_parse(argc, argv);
+	visu_remap(data);
 	visu_print_data(data);
 	if (visu_init_visu(data) < 0)
 	{
 		visu_free_data(&data);
 		return (0);
 	}
+	visu_draw_anthill(data);
 	visu_loop(data);
 	return (0);
 }

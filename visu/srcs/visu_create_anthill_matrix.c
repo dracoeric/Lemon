@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/07 13:15:42 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:36:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static	int	visu_create_matrix(t_visu_data *data)
 	return (0);
 }
 
-static	int	visu_copy_from_room(t_room *anthill, t_parse *room, int i)
+static	int	visu_copy_from_room(t_visu_data *data, t_parse *room, int i)
 {
-	anthill[i].name = ft_strsub(room->name, 0, room->size);
-	if (anthill[i].name == 0)
+	data->anthill[i].name = ft_strsub(room->name, 0, room->size);
+	if (data->anthill[i].name == 0)
 		return (-2);
-	anthill[i].x = room->x;
-	anthill[i].y = room->y;
+	data->anthill[i].x = room->x;
+	data->anthill[i].y = room->y;
+	data->anthill[i].occupants = 0;
 	return (0);
 }
 
@@ -54,7 +55,7 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 	i = 0;
 	while (tmp != NULL)
 	{
-		if (visu_copy_from_room(data->anthill, tmp, i) == -2)
+		if (visu_copy_from_room(data, tmp, i) == -2)
 			return (ft_msg_int(2, "Abort, failed malloc create anthill", -2));
 		if (tmp->state != 0)
 		{
@@ -64,5 +65,6 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 		i++;
 		tmp = tmp->next;
 	}
+	data->anthill[data->start].occupants = data->n_ant;
 	return (visu_create_matrix(data));
 }

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 13:17:56 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 13:47:52 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:23:03 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 static	int		visu_get_old_instructions(t_visu_data *data)
 {
-	char *line;
+	char	*line;
+	char	*copy;
+	int		ret;
 
 	if (VI_PLAY_BACKWARD(data->play_param) && data->cursor < HIST_SIZE - 1)
 	{
 		line = data->history[data->cursor + 1];
 		data->cursor += (line == NULL ? 0 : 1);
-		return (visu_do_instructions(data, line));
+		if (line == 0)
+			return (1);
 	}
 	else if (VI_PLAY_FORWARD(data->play_param))
-	{
 		line = data->history[(data->cursor)--];
-		return (visu_do_instructions(data, line));
-	}
-	return (1);
+	if (!(copy = ft_strdup(line)))
+		return (ft_msg_int(2, "failed Malloc\n", -2));
+	ret = visu_do_instructions(data, copy);
+	free(copy);
+	return (ret);
 }
 
 static	void	visu_move_down(char **history)
@@ -46,16 +50,19 @@ static	int		visu_get_new_instructions(t_visu_data *data)
 {
 	int		ret;
 	char	*line;
+	char	*copy;
 
 	ret = get_next_line(0, &line);
 	if (ret <= 0)
 		return (ret == 0 ? 0 : ft_msg_int(2, "Failed GNL\n", -1));
-	if (visu_check_instructions(data, line) < 0)
-		return (-1);
 	free(data->history[HIST_SIZE - 1]);
 	visu_move_down(data->history);
 	data->history[0] = line;
-	return (visu_do_instructions(data, line));
+	if (!(copy = ft_strdup(line)))
+		return (ft_msg_int(2, "failed Malloc\n", -2));
+	ret = visu_do_instructions(data, copy);
+	free(copy);
+	return (ret);
 }
 
 int				visu_get_instructions(t_visu_data *data)

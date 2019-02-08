@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 08:06:40 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 11:43:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 14:01:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void			visu_print_data(t_visu_data *data)
 		data->n_ant, data->start, data->end, data->n_room, data->options);
 	ft_printf("min x = %d, max x = %d\n", data->min_x, data->max_x);
 	ft_printf("min y = %d, max y = %d\n", data->min_y, data->max_y);
+	ft_printf("cursor = %d\nplay_param = %d\ncurrent_phero = %d\n",
+		data->cursor, (int)data->play_param, data->current_pheromon);
 	if (data->anthill != 0)
 		visu_print_anthill(data);
 	if (data->matrix != 0)

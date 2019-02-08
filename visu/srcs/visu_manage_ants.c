@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:12 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 13:04:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:53:47 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,16 @@ static	void	visu_manage_pheromon(t_visu_data *data, int ant_id,
 	{
 		(data->matrix)[origin][dest] = 1;
 		(data->matrix)[dest][origin] = 1;
-		if (dest == data->start)
-			data->pioneers[ant_id] = 0;
 	}
 }
 
-static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id)
+static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id,
+					int origin)
 {
 	t_ant	*elem;
 	t_ant	*bubble;
-	int		origin;
+	int		ret;
 
-	origin = (VI_PLAY_FORWARD(data->play_param) ? data->start : data->end);
 	if (((data->matrix)[origin][room_id] & 1) != 1)
 		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
 	if (!(elem = (t_ant *)malloc(sizeof(t_ant))))
@@ -78,7 +76,8 @@ static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id)
 		bubble->next = elem;
 	}
 	visu_manage_pheromon(data, ant_id, origin, room_id);
-	return (1);
+	ret = visu_reverse_instruction(data, ant_id, origin, room_id);
+	return (ret < 0 ? ret : visu_manage_room_pop(data, origin, room_id));
 }
 
 static	int		visu_move_ant(t_visu_data *data, t_ant *ant, int room_id)
@@ -88,6 +87,10 @@ static	int		visu_move_ant(t_visu_data *data, t_ant *ant, int room_id)
 	if (ant->moved == 1)
 		return (ft_msg_int(2, "Can't move ant more than once/turn.\n", -1));
 	visu_manage_pheromon(data, ant->id, ant->location, room_id);
+	if (visu_reverse_instruction(data, ant->id, ant->location, room_id) < 0)
+		return (-1);
+	if (visu_manage_room_pop(data, ant->location, room_id) < 0)
+		return (-1);
 	ant->location = room_id;
 	ant->moved = 1;
 	return (1);
@@ -103,20 +106,18 @@ int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,
 
 	i = 0;
 	ant = data->ants;
-	while (line[i] != ' ' || line[i] != '\0')
+	while (line[i] != ' ' && line[i] != '\0')
 	{
 		room_name[i] = line[i];
 		i++;
 	}
+	room_name[i] = '\0';
 	room_id = visu_rec_search(data->anthill, room_name, 0, data->n_room - 1);
 	if (room_id < 0)
 		return (ft_msg_int(2, "Room does not exist.\n", -1));
 	if (visu_search_ant(&ant, ant_id) < 0)
-	{
-		if (visu_add_ant(data, ant_id, room_id) < 0)
-			return (-2);
-		return (1);
-	}
+		return (visu_add_ant(data, ant_id, room_id,
+			(VI_PLAY_FORWARD(data->play_param) ? data->start : data->end)));
 	else
 		visu_move_ant(data, ant, room_id);
 	return (1);

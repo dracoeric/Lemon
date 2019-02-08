@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 14:52:21 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 12:02:01 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:53:56 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,23 @@ static	int		visu_get_ant_id(t_visu_data *data, char *line, int *ant_id,
 	return (0);
 }
 
-static	void	visu_remove_ant(t_ant **ants, t_ant *arrived_ant)
+static	void	visu_remove_ant(t_ant **ants, t_ant **arrived_ant)
 {
 	t_ant	*previous;
 
 	if (*ants == 0)
 		return ;
-	if ((*ants)->id == arrived_ant->id)
-		*ants = arrived_ant->next;
+	if ((*ants)->id == (*arrived_ant)->id)
+		*ants = (*arrived_ant)->next;
 	else
 	{
 		previous = *ants;
-		while (previous->next != 0 && previous->next->id != arrived_ant->id)
+		while (previous->next != 0 && previous->next->id != (*arrived_ant)->id)
 			previous = previous->next;
-		previous->next = arrived_ant->next;
+		previous->next = (*arrived_ant)->next;
 	}
-	free(arrived_ant);
+	free((*arrived_ant));
+	*arrived_ant = (*arrived_ant)->next;
 }
 
 static	void	visu_end_turn(t_visu_data *data)
@@ -57,10 +58,18 @@ static	void	visu_end_turn(t_visu_data *data)
 	ant = data->ants;
 	while (ant != 0)
 	{
-		if ((ant->location == data->end && VI_PLAY_FORWARD(data->play_param))
-			|| (ant->location == data->start
-				&& VI_PLAY_BACKWARD(data->play_param)))
-			visu_remove_ant(&(data->ants), ant);
+		if ((ant->location == data->end && VI_PLAY_FORWARD(data->play_param)))
+			visu_remove_ant(&(data->ants), &ant);
+		else if (ant->location == data->start
+			&& VI_PLAY_BACKWARD(data->play_param))
+		{
+			if (data->pioneers[ant->id] != 0)
+			{
+				data->current_pheromon -= 1;
+				data->pioneers[ant->id] = 0;
+			}
+			visu_remove_ant(&(data->ants), &ant);
+		}
 		else
 		{
 			ant->moved = 0;
@@ -81,14 +90,18 @@ int				visu_do_instructions(t_visu_data *data, char *line)
 		if (visu_get_ant_id(data, line, &ant_id, &i) < 0)
 			return (-1);
 		i_start = i;
-		while (line[i] != ' ' || line[i] != '\0')
+		while (line[i] != ' ' && line[i] != '\0')
 			i++;
 		if (visu_manage_ants(data, line + i_start, ant_id, i - i_start) < 0)
 			return (-1);
 		if (line[i] == ' ')
 			i++;
+		if (line[i] == 'L')
+			i++;
+		else if (line[i] != '\0')
+			return (ft_msg_int(2, "Invalid instruction\n", -1));
 	}
-	visu_draw_anthill(data);
 	visu_end_turn(data);
+	visu_draw_anthill(data);
 	return (1);
 }

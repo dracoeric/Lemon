@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 13:55:12 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 17:58:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static	void	visu_draw_rooms(t_visu_data *data, int delta)
 			colour = END_COLOUR;
 		visu_get_pix(data->anthill[i], pix, colour, delta);
 		visu_draw_circle(data, pix);
+		if (i == data->end || i == data->start)
+			visu_draw_pop(data, pix, i);
 		i++;
 	}
 }
@@ -79,6 +81,7 @@ static	void	visu_draw_ants(t_visu_data *data, int delta)
 	while (bubble != 0)
 	{
 		pheromon = data->pioneers[bubble->id];
+		pheromon = (pheromon == 0 ? 1 << 20 : pheromon);
 		visu_get_pix(data->anthill[bubble->location], pix, pheromon, delta);
 		visu_draw_ant(data, pix);
 		bubble = bubble->next;
@@ -89,7 +92,6 @@ void			visu_draw_anthill(t_visu_data *data)
 {
 	int	delta;
 
-	visu_remap(data);
 	delta = (HEIGHT - (2 * BORDER)) / (data->max_x + 2);
 	if (delta < 50)
 	{

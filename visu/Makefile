@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/08 13:31:43 by erli             ###   ########.fr        #
+#    Updated: 2019/02/08 17:56:24 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -26,6 +26,8 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 					visu_do_instructions.c					visu_manage_ants.c		\
 					visu_draw_anthill.c	visu_remap.c		visu_draw_line.c		\
 					visu_pixel_put.c	visu_draw_circle.c	visu_draw_ant.c			\
+					visu_reverse_instruction.c				visu_manage_room_pop.c	\
+					visu_check_room_pop.c					visu_draw_pop.c			\
 																					\
 					mlx_str_to_colour.c
 
