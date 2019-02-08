@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_line_put.c                                     :+:      :+:    :+:   */
+/*   visu_draw_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erli <erli@42.fr>                          +#+  +:+       +#+        */
+/*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/30 16:33:10 by erli              #+#    #+#             */
-/*   Updated: 2018/12/01 18:47:42 by erli             ###   ########.fr       */
+/*   Created: 2019/02/08 12:05:20 by erli              #+#    #+#             */
+/*   Updated: 2019/02/08 13:32:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlxadd.h"
+#include "visu.h"
 
-static	void	draw_line_case1(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
-					t_pixcoord *b, t_colour (*f)(int))
+static	void	visu_pixel_put_cross(t_visu_data *data, int x, int y, int z)
+{
+	visu_pixel_put(data, x, y, z);
+	visu_pixel_put(data, x + 1, y, z);
+	visu_pixel_put(data, x, y + 1, z);
+	visu_pixel_put(data, x - 1, y, z);
+	visu_pixel_put(data, x, y - 1, z);
+}
+
+static	void	draw_line_case1(t_visu_data *data, t_pixcoord *a,
+			t_pixcoord *b)
 {
 	int x;
 	int x_diff;
@@ -36,13 +45,13 @@ static	void	draw_line_case1(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
 			z = a->pz;
 			y = a->py;
 		}
-		mlx_pixel_put(mlxwin->mlx_ptr, mlxwin->win_ptr, x, y, f(z));
+		visu_pixel_put_cross(data, x, y, z);
 		x++;
 	}
 }
 
-static	void	draw_line_case2(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
-					t_pixcoord *b, t_colour (*f)(int))
+static	void	draw_line_case2(t_visu_data *data, t_pixcoord *a,
+			t_pixcoord *b)
 {
 	int x;
 	int y_diff;
@@ -57,13 +66,13 @@ static	void	draw_line_case2(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
 		y_pro = y - a->py;
 		z = a->pz + y_pro * (b->pz - a->pz) / y_diff;
 		x = a->px + y_pro * (b->px - a->px) / y_diff;
-		mlx_pixel_put(mlxwin->mlx_ptr, mlxwin->win_ptr, x, y, f(z));
+		visu_pixel_put_cross(data, x, y, z);
 		y++;
 	}
 }
 
-void			mlx_line_put(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
-					t_pixcoord *b, t_colour (*f)(int))
+void			visu_draw_line(t_visu_data *data, t_pixcoord *a,
+						t_pixcoord *b)
 {
 	int	y_diff;
 	int x_diff;
@@ -73,11 +82,11 @@ void			mlx_line_put(t_mlxwin_ptr *mlxwin, t_pixcoord *a,
 	y_diff = b->py - a->py;
 	x_diff = b->px - a->px;
 	if (x_diff >= 0 && x_diff >= (y_diff < 0 ? -y_diff : y_diff))
-		draw_line_case1(mlxwin, a, b, f);
+		draw_line_case1(data, a, b);
 	else if (x_diff < 0 && -x_diff >= (y_diff < 0 ? -y_diff : y_diff))
-		draw_line_case1(mlxwin, b, a, f);
+		draw_line_case1(data, b, a);
 	else if (y_diff > 0 && y_diff >= (x_diff < 0 ? -x_diff : x_diff))
-		draw_line_case2(mlxwin, a, b, f);
+		draw_line_case2(data, a, b);
 	else
-		draw_line_case2(mlxwin, b, a, f);
+		draw_line_case2(data, b, a);
 }

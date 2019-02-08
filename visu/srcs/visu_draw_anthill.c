@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 12:01:42 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 12:08:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static	void	visu_get_pix(t_room room, t_pixcoord *pix, int colour,
 					int delta)
 {
-	pix.px = (room.x + 1) * delta;
-	pix.py = (room.y + 1) * delta;
-	pix.pz = colour;
+	pix->px = (room.x + 1) * delta;
+	pix->py = (room.y + 1) * delta;
+	pix->pz = colour;
 }
 
 static	void	visu_draw_links(t_visu_data *data, int delta)
@@ -39,7 +39,7 @@ static	void	visu_draw_links(t_visu_data *data, int delta)
 				pheromon = (data->matrix[i][j] >> 1);
 				visu_get_pix(data->anthill[i], a, pheromon, delta);
 				visu_get_pix(data->anthill[j], b, pheromon, delta);
-				visu_draw_line(a, b);
+				visu_draw_line(data, a, b);
 			}
 			j++;
 		}
@@ -62,12 +62,12 @@ static	void	visu_draw_rooms(t_visu_data *data, int delta)
 		else if (i == data->end)
 			colour = END_COLOUR;
 		visu_get_pix(data->anthill[i], pix, colour, delta);
-		visu_draw_circle(pix);
+		visu_draw_circle(data, pix);
 		i++;
 	}
 }
 
-static	void	visu_draw_ant(t_visu_data *data, int delta)
+static	void	visu_draw_ants(t_visu_data *data, int delta)
 {
 	t_ant		*bubble;
 	t_pixcoord	pix[1];
@@ -79,8 +79,8 @@ static	void	visu_draw_ant(t_visu_data *data, int delta)
 	while (bubble != 0)
 	{
 		pheromon = data->pioneers[bubble->id];
-		visu_get_pix(data->anthill[i], pix, pheromon, delta);
-		visu_draw_ant(pix);
+		visu_get_pix(data->anthill[bubble->location], pix, pheromon, delta);
+		visu_draw_ant(data, pix);
 		bubble = bubble->next;
 	}
 }

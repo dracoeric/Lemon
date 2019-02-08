@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 11:19:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 12:12:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static	void	visu_uniform_remap(t_visu_data *data, int room_per_line)
 		x = 0;
 		while (x < room_per_line && i < data->n_room)
 		{
-			anthill[i].x = x;
-			anthill[i].y = y;
+			data->anthill[i].x = x;
+			data->anthill[i].y = y;
 			x += 1;
 			i++;
 		}
@@ -54,10 +54,10 @@ void			visu_remap(t_visu_data *data)
 	if (!VI_OPT_COORD(data->options))
 	{
 		i = 0;
-		while (i < ant->n_room)
+		while (i < data->n_room)
 		{
-			anthill[i].x -= data->min_x;
-			anthill[i].y -= data->min_y;
+			data->anthill[i].x -= data->min_x;
+			data->anthill[i].y -= data->min_y;
 			i++;
 		}
 		data->max_x -= data->min_x;
