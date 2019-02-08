@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 13:17:56 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 15:43:54 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 13:47:52 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ static	int		visu_get_old_instructions(t_visu_data *data)
 		data->cursor += (line == NULL ? 0 : 1);
 		return (visu_do_instructions(data, line));
 	}
-	else
+	else if (VI_PLAY_FORWARD(data->play_param))
 	{
 		line = data->history[(data->cursor)--];
 		return (visu_do_instructions(data, line));
 	}
+	return (1);
 }
 
 static	void	visu_move_down(char **history)

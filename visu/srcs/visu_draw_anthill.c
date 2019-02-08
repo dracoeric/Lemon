@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 12:08:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 13:55:12 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,6 @@ void			visu_draw_anthill(t_visu_data *data)
 	visu_draw_links(data, delta);
 	visu_draw_rooms(data, delta);
 	visu_draw_ants(data, delta);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr,
+		WIDTH - HEIGHT, 0);
 }
