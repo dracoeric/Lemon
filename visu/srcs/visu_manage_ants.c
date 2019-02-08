@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:12 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:53:47 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 19:51:27 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ static	void	visu_manage_pheromon(t_visu_data *data, int ant_id,
 {
 	int	pheromon;
 
-	if (VI_PHER_BLANK(data, origin, dest) && data->pioneers[ant_id] == 0)
+	if (VI_PHER_BLANK(data, origin, dest) && data->pioneers[ant_id - 1] == 0)
 	{
 		pheromon = (1 << (data->current_pheromon % 16));
 		(data->current_pheromon)++;
 		(data->matrix)[origin][dest] = (1 | (pheromon << 1));
 		(data->matrix)[dest][origin] = (1 | (pheromon << 1));
-		data->pioneers[ant_id] = pheromon;
+		data->pioneers[ant_id - 1] = pheromon;
 	}
 	else if (VI_PHER_BLANK(data, origin, dest))
 	{
-		(data->matrix)[origin][dest] = (1 | (data->pioneers[ant_id] << 1));
-		(data->matrix)[dest][origin] = (1 | (data->pioneers[ant_id] << 1));
+		(data->matrix)[origin][dest] = (1 | (data->pioneers[ant_id - 1] << 1));
+		(data->matrix)[dest][origin] = (1 | (data->pioneers[ant_id - 1] << 1));
 	}
 	else if (((data->matrix)[origin][dest] >> 1)
-		== data->pioneers[ant_id])
+		== data->pioneers[ant_id - 1])
 	{
 		(data->matrix)[origin][dest] = 1;
 		(data->matrix)[dest][origin] = 1;
@@ -59,7 +59,10 @@ static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id,
 	int		ret;
 
 	if (((data->matrix)[origin][room_id] & 1) != 1)
+	{
+		ft_printf("ant = %d, orig = %s, dest = %s\n", ant_id, data->anthill[origin].name, data->anthill[room_id].name);
 		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
+	}
 	if (!(elem = (t_ant *)malloc(sizeof(t_ant))))
 		return (ft_msg_int(2, "Failed malloc int add ant\n", -2));
 	elem->id = ant_id;
@@ -83,7 +86,10 @@ static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id,
 static	int		visu_move_ant(t_visu_data *data, t_ant *ant, int room_id)
 {
 	if (((data->matrix)[ant->location][room_id] & 1) != 1)
+	{
+		ft_printf("ant = %d, orig = %s, dest = %s\n", ant->id, data->anthill[ant->location].name, data->anthill[room_id].name);
 		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
+	}
 	if (ant->moved == 1)
 		return (ft_msg_int(2, "Can't move ant more than once/turn.\n", -1));
 	visu_manage_pheromon(data, ant->id, ant->location, room_id);

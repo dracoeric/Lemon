@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/07 11:43:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 19:44:54 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
 	if (visu_parse_edit_new_room(line, data, new, len) < 0)
 		return (ft_msg_int(2, "Invalid coordinates\n", -1));
 	if (*rooms == NULL)
+	{
+		visu_check_room_coord(data, *rooms, new);
 		*rooms = new;
+	}
 	else
 		return (visu_parse_get_rooms_place_room(data, rooms, new));
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 12:53:08 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:37:31 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 18:31:44 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ static	t_colour	visu_colour(int z)
 	else if (((z >> 20) & 1) == 1)
 		return (mlx_str_to_colour("0x00000000"));
 	else if ((z & 1) == 1)
-		return (mlx_str_to_colour("0x00af00af"));
+		return (mlx_str_to_colour("0x00af19af"));
 	else if (((z >> 1) & 1) == 1)
-		return (mlx_str_to_colour("0x00e1d7c0"));
+		return (mlx_str_to_colour("0x003635d5"));
 	else if (((z >> 2) & 1) == 1)
-		return (mlx_str_to_colour("0x00ff8484"));
+		return (mlx_str_to_colour("0x00ff00be"));
 	else if (((z >> 3) & 1) == 1)
 		return (mlx_str_to_colour("0x0000ff00"));
 	else if (((z >> 4) & 1) == 1)

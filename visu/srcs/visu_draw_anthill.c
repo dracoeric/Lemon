@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:58:13 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 19:48:31 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static	void	visu_get_pix(t_room room, t_pixcoord *pix, int colour,
 					int delta)
 {
-	pix->px = (room.x + 1) * delta;
-	pix->py = (room.y + 1) * delta;
+	pix->px = (room.x) * delta + BORDER;
+	pix->py = (room.y) * delta + BORDER;
 	pix->pz = colour;
 }
 
@@ -80,7 +80,7 @@ static	void	visu_draw_ants(t_visu_data *data, int delta)
 	bubble = data->ants;
 	while (bubble != 0)
 	{
-		pheromon = data->pioneers[bubble->id];
+		pheromon = data->pioneers[bubble->id - 1];
 		pheromon = (pheromon == 0 ? 1 << 20 : pheromon);
 		visu_get_pix(data->anthill[bubble->location], pix, pheromon, delta);
 		visu_draw_ant(data, pix);
@@ -92,8 +92,8 @@ void			visu_draw_anthill(t_visu_data *data)
 {
 	int	delta;
 
-	delta = (HEIGHT - (2 * BORDER)) / (data->max_x + 2);
-	if (delta < 50)
+	delta = (HEIGHT - 2 * BORDER) / (data->max_x + 1);
+	if (delta < 40)
 	{
 		visu_free_data(&data);
 		exit(ft_msg_int(2, "Can't draw, map too big\n", 0));

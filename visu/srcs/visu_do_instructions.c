@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 14:52:21 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:53:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 18:47:20 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ static	void	visu_remove_ant(t_ant **ants, t_ant **arrived_ant)
 			previous = previous->next;
 		previous->next = (*arrived_ant)->next;
 	}
-	free((*arrived_ant));
+	previous = *arrived_ant;
 	*arrived_ant = (*arrived_ant)->next;
+	free(previous);
 }
 
 static	void	visu_end_turn(t_visu_data *data)
@@ -63,10 +64,10 @@ static	void	visu_end_turn(t_visu_data *data)
 		else if (ant->location == data->start
 			&& VI_PLAY_BACKWARD(data->play_param))
 		{
-			if (data->pioneers[ant->id] != 0)
+			if (data->pioneers[ant->id - 1] != 0)
 			{
 				data->current_pheromon -= 1;
-				data->pioneers[ant->id] = 0;
+				data->pioneers[ant->id - 1] = 0;
 			}
 			visu_remove_ant(&(data->ants), &ant);
 		}

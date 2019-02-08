@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:57:34 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 19:48:14 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 
 # define WIDTH 2160
-# define HEIGHT 1440
+# define HEIGHT 1240
 # define BORDER 100
 # define ROOM_RAD 18
 # define B_SIZE 16364
@@ -122,7 +122,6 @@ void			visu_print_data(t_visu_data *data);
 int				visu_get_instructions(t_visu_data *data);
 int				visu_rec_search(t_room *anthill, char *name, int i, int j);
 int				visu_do_instructions(t_visu_data *data, char *line);
-int				visu_check_instructions(t_visu_data *data, char *line);
 int				visu_reverse_instruction(t_visu_data *data, int ant_id, int orig,
 					int dest);
 int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,

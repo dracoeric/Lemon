@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/08 17:56:24 by erli             ###   ########.fr        #
+#    Updated: 2019/02/08 19:45:25 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -22,7 +22,7 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 					visu_parse_edit_new_room.c				visu_free_parse.c		\
 					visu_check_room_coord.c					visu_init_data.c		\
 					visu_init_visu.c						visu_get_instructions.c	\
-					visu_check_instructions.c				visu_rec_search.c		\
+															visu_rec_search.c		\
 					visu_do_instructions.c					visu_manage_ants.c		\
 					visu_draw_anthill.c	visu_remap.c		visu_draw_line.c		\
 					visu_pixel_put.c	visu_draw_circle.c	visu_draw_ant.c			\
@@ -33,7 +33,7 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
-CC			=		gcc -g
+CC			=		gcc -g -Ofast -fsanitize=address
 
 CFLAG		=		-Wall -Werror -Wextra
 

@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 17:36:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 18:27:22 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,19 @@ static	int	visu_create_matrix(t_visu_data *data)
 
 static	int	visu_copy_from_room(t_visu_data *data, t_parse *room, int i)
 {
-	data->anthill[i].name = ft_strsub(room->name, 0, room->size);
-	if (data->anthill[i].name == 0)
+	char	*name;
+	int		j;
+
+	if (!(name = (char *)malloc(room->size + 1)))
 		return (-2);
+	j = 0;
+	while (j < room->size)
+	{
+		name[j] = room->name[j];
+		j++;
+	}
+	name[j] = '\0';
+	data->anthill[i].name = name;
 	data->anthill[i].x = room->x;
 	data->anthill[i].y = room->y;
 	data->anthill[i].occupants = 0;

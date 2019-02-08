@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 14:14:29 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 18:38:01 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static	void	visu_uniform_remap(t_visu_data *data, int room_per_line)
 			x += 1;
 			i++;
 		}
-		data->max_x = x;
 		y++;
 	}
+	data->max_x = (y > 0 ? room_per_line : x);
 	data->max_y = y;
 }
 

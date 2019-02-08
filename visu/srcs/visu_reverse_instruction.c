@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 15:19:51 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 17:32:10 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 19:07:56 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int				visu_reverse_instruction(t_visu_data *data, int ant_id,
 	else
 		cursor = data->cursor;
 	old_line = data->history[cursor];
-	len = ft_strlen(line);
-	diff = ft_strlen(data->anthill[dest].name)
-		- ft_strlen(data->anthill[orig].name);
+	len = ft_strlen(old_line);
+	diff = ft_strlen(data->anthill[orig].name)
+		- ft_strlen(data->anthill[dest].name);
 	if (!(line = (char *)malloc(sizeof(char) * (len + diff + 1)))
 		|| visu_transform(old_line, line, ant_id, data->anthill[orig].name) < 0)
 		return (ft_msg_int(2, "Failed malloc\n", -2));
