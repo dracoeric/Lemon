@@ -6,13 +6,13 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 14:52:21 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 17:06:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 12:02:01 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-static	void	visu_get_ant_id(t_visu_data *data, char *line, int *ant_id,
+static	int		visu_get_ant_id(t_visu_data *data, char *line, int *ant_id,
 					int *i)
 {
 	int nb;
@@ -32,21 +32,39 @@ static	void	visu_get_ant_id(t_visu_data *data, char *line, int *ant_id,
 	return (0);
 }
 
+static	void	visu_remove_ant(t_ant **ants, t_ant *arrived_ant)
+{
+	t_ant	*previous;
+
+	if (*ants == 0)
+		return ;
+	if ((*ants)->id == arrived_ant->id)
+		*ants = arrived_ant->next;
+	else
+	{
+		previous = *ants;
+		while (previous->next != 0 && previous->next->id != arrived_ant->id)
+			previous = previous->next;
+		previous->next = arrived_ant->next;
+	}
+	free(arrived_ant);
+}
+
 static	void	visu_end_turn(t_visu_data *data)
 {
-	t_ant *ants;
+	t_ant *ant;
 
-	ants = data->ants;
-	while (ants != 0)
+	ant = data->ants;
+	while (ant != 0)
 	{
-		if ((ants->location == data->end && VI_PLAY_FORWARD(data->play_param))
-			|| (ants->location == data->start
+		if ((ant->location == data->end && VI_PLAY_FORWARD(data->play_param))
+			|| (ant->location == data->start
 				&& VI_PLAY_BACKWARD(data->play_param)))
-			visu_remove_ant(&ants);
+			visu_remove_ant(&(data->ants), ant);
 		else
 		{
-			ants->moved = 0;
-			ants = ants->next;
+			ant->moved = 0;
+			ant = ant->next;
 		}
 	}
 }

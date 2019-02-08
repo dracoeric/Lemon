@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:12 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 17:42:28 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 10:50:44 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static	int		visu_search_ant(t_ant **ant, int ant_id)
 			return (1);
 		*ant = (*ant)->next;
 	}
+	return (-1);
 }
 
 static	void	visu_manage_pheromon(t_visu_data *data, int ant_id,
@@ -29,16 +30,21 @@ static	void	visu_manage_pheromon(t_visu_data *data, int ant_id,
 {
 	int	pheromon;
 
-	if (VI_PHER_BLANK(data, origin, dest))
+	if (VI_PHER_BLANK(data, origin, dest) && data->pioneers[ant_id] == 0)
 	{
 		pheromon = (1 << (data->current_pheromon % 16));
 		(data->current_pheromon)++;
-		(data->matrix)[origin][dest] = (1 | pheromon << 1);
-		(data->matrix)[dest][origin] = (1 | pheromon << 1);
+		(data->matrix)[origin][dest] = (1 | (pheromon << 1));
+		(data->matrix)[dest][origin] = (1 | (pheromon << 1));
 		data->pioneers[ant_id] = pheromon;
 	}
+	else if (VI_PHER_BLANK(data, origin, dest))
+	{
+		(data->matrix)[origin][dest] = (1 | (data->pioneers[ant_id] << 1));
+		(data->matrix)[dest][origin] = (1 | (data->pioneers[ant_id] << 1));
+	}
 	else if (((data->matrix)[origin][dest] >> 1)
-			 == data->pioneers[ant_id])
+		== data->pioneers[ant_id])
 	{
 		(data->matrix)[origin][dest] = 1;
 		(data->matrix)[dest][origin] = 1;
@@ -47,11 +53,10 @@ static	void	visu_manage_pheromon(t_visu_data *data, int ant_id,
 	}
 }
 
-static	int		visu_add_ant(t_visu_data *data, t_ant **ant, int ant_id,
-					int room_id)
+static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id)
 {
 	t_ant	*elem;
-	t_ant	bubble;
+	t_ant	*bubble;
 	int		origin;
 
 	origin = (VI_PLAY_FORWARD(data->play_param) ? data->start : data->end);
@@ -60,8 +65,7 @@ static	int		visu_add_ant(t_visu_data *data, t_ant **ant, int ant_id,
 	if (!(elem = (t_ant *)malloc(sizeof(t_ant))))
 		return (ft_msg_int(2, "Failed malloc int add ant\n", -2));
 	elem->id = ant_id;
-	elem->pheromon = 0;
-	elem->locations = room_id;
+	elem->location = room_id;
 	elem->moved = 1;
 	elem->next = NULL;
 	if (data->ants == 0)
@@ -73,17 +77,20 @@ static	int		visu_add_ant(t_visu_data *data, t_ant **ant, int ant_id,
 			bubble = bubble->next;
 		bubble->next = elem;
 	}
-	return (visu_manage_pheromon(data, ant_id,
-		(VI_PLAY_FORWARD(data->play_param) ? data->start : data->end),
-		room_id));
+	visu_manage_pheromon(data, ant_id, origin, room_id);
 	return (1);
 }
 
-static	int		visu_move_ants(t_visu_data *data, t_ant *ant, int room_id)
+static	int		visu_move_ant(t_visu_data *data, t_ant *ant, int room_id)
 {
-
-
-
+	if (((data->matrix)[ant->location][room_id] & 1) != 1)
+		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
+	if (ant->moved == 1)
+		return (ft_msg_int(2, "Can't move ant more than once/turn.\n", -1));
+	visu_manage_pheromon(data, ant->id, ant->location, room_id);
+	ant->location = room_id;
+	ant->moved = 1;
+	return (1);
 }
 
 int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,
@@ -92,21 +99,21 @@ int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,
 	char	room_name[len + 1];
 	int		i;
 	int		room_id;
-	t_ant	ant;
+	t_ant	*ant;
 
 	i = 0;
 	ant = data->ants;
 	while (line[i] != ' ' || line[i] != '\0')
 	{
-		name[i] = line[i];
+		room_name[i] = line[i];
 		i++;
 	}
-	room_id = visu_rec_search(data->anthill, room_name, 0, data->n_room -1);
+	room_id = visu_rec_search(data->anthill, room_name, 0, data->n_room - 1);
 	if (room_id < 0)
 		return (ft_msg_int(2, "Room does not exist.\n", -1));
 	if (visu_search_ant(&ant, ant_id) < 0)
 	{
-		if (visu_add_ant(data, &ant, ant_id, room_id) < 0)
+		if (visu_add_ant(data, ant_id, room_id) < 0)
 			return (-2);
 		return (1);
 	}

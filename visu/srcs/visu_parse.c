@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/07 13:13:09 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/08 10:33:56 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static	int			visu_parse_line(char *line, t_visu_data *data,\
 	int	tr;
 
 	tr = 1;
-	if (ft_strlen(line) == 0) //arreter la lecture apres les pipes//
+//arreter la lecture apres les pipes//
+	if (ft_strlen(line) == 0)
 		return (2);
 	if (visu_fill_file(line, file) < 0)
 		return (-1);
