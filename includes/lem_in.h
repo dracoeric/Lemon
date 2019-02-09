@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 11:01:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 17:12:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 16:48:31 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "get_next_line.h"
+
+# include <sys/time.h>
 
 # define WIDTH 1080
 # define HEIGHT 720
@@ -61,6 +63,7 @@ typedef struct	s_lem_in_data
 	int			fd;
 	int			failed_malloc;
 	char		**anthill;
+	int			*reached;
 	char		**matrix;
 	char		**matrix_old;
 	int			*limits;
@@ -91,14 +94,14 @@ void			lem_in_del_list(t_path **list);
 void			lem_in_trim_path(t_lem_in_data *data, t_path **list);
 int				lem_in_next_room(t_lem_in_data *data, t_path *path, int n_room,
 						int *index);
-t_path			*lem_in_bfs_path(t_lem_in_data *data);
+t_path			*lem_in_bfs_path(t_lem_in_data *data, int max_steps);
 int				lem_in_manage_node(t_lem_in_data *data, t_path **list,
 						t_path **bubble, int *n_path);
 void			lem_in_add_flow(t_lem_in_data *data, int src, int dest);
 int				lem_in_algo(t_lem_in_data *data);
 void			lem_in_get_steps(t_lem_in_data *data, char **matrix,
 					int *tab, int n_path);
-int				lem_in_test_opti(t_lem_in_data *data, int n_paths);
+int				lem_in_test_opti(t_lem_in_data *data, int n_paths, int *oldisbet);
 void			lem_in_draw_graph(t_lem_in_data *data, t_mapcoord a,
 					t_mapcoord b);
 void			lem_in_draw_grad(t_lem_in_data *data);
@@ -129,5 +132,6 @@ void			lem_in_unload_ants(t_lem_in_data *data, t_path *path);
 void			lem_in_print_file(t_lem_in_data *data);
 void			lem_in_free_data(t_lem_in_data **data);
 void			lem_in_free_path(t_path *path, int mode);
-
+int				lem_in_init_reached(t_lem_in_data *data);
+void			lem_in_reset_reached(t_lem_in_data* data);
 #endif

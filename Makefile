@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/06 15:39:56 by erli             ###   ########.fr        #
+#    Updated: 2019/02/09 17:06:31 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,7 @@ NAME		=		lem_in
 SRCSDIR		=		./srcs
 OBJSDIR		=		./objs
 
-SRCS		=		main_unit.c			lem_in_add_flow.c		lem_in_algo.c		\
+SRCS		=		main.c				lem_in_add_flow.c		lem_in_algo.c		\
 					lem_in_atoi.c		lem_in_bfs_path.c		lem_in_create_path.c\
 					lem_in_del_list.c	lem_in_draw_graph.c		lem_in_fill_file.c	\
 					lem_in_get_steps.c	lem_in_magic_paths.c	lem_in_manage_node.c\
@@ -28,9 +28,9 @@ SRCS		=		main_unit.c			lem_in_add_flow.c		lem_in_algo.c		\
 					lem_in_create_anthill_matrix.c			lem_in_free_path.c		\
 					lem_in_print_file.c	lem_in_close.c			lem_in_key.c		\
 					lem_in_draw_grad.c	lem_in_unload_ants.c						\
-					lem_in_manage_output.c											\
-																					\
-					mlx_line_put.c		mlx_str_to_colour.c
+					lem_in_manage_output.c				lem_in_init_reached.c		\
+					lem_in_reset_reached.c											\
+					mlx_line_put.c		mlx_str_to_colour.c	
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 

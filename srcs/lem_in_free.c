@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:37:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 19:28:54 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 16:55:14 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	lem_in_free_data(t_lem_in_data **data)
 		lem_in_free_tabchar((*data)->anthill);
 		lem_in_free_tabchar((*data)->matrix);
 		lem_in_free_tabchar((*data)->matrix_old);
+		if ((*data)->reached != 0)
+			free((*data)->reached);
 		if ((*data)->win_ptr != 0)
 			mlx_destroy_window((*data)->mlx_ptr, (*data)->win_ptr);
 		free(*data);

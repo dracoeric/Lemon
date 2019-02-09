@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/05 14:49:24 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 16:54:26 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,7 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 	data->anthill = NULL;
 	data->matrix = NULL;
 	data->matrix_old = NULL;
-	data->buf = NULL;
-	data->limits = NULL;
+	data->reached = NULL;
 	if (argc > 1)
 		tr = lem_in_get_options(argc, argv, data);
 	if (tr > 0)

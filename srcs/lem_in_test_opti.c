@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:20:13 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 09:47:05 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 17:04:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static	int		lem_in_eval_steps(t_lem_in_data *data, int *tab, int n_paths)
 	return ((int)(data->n_ant / a + b));
 }
 
-int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
+int				lem_in_test_opti(t_lem_in_data *data, int n_paths,
+					int *old_is_better)
 {
 	int			steps_old[n_paths - 1];
 	int			steps_new[n_paths];
@@ -93,6 +94,7 @@ int				lem_in_test_opti(t_lem_in_data *data, int n_paths)
 		lem_in_draw_graph_lines(data, steps_new, n_paths);
 	}
 	if (n_steps > n_steps_new)
-		return (0);
-	return (1);
+		return (n_steps_new);
+	*old_is_better = 1;
+	return (n_steps);
 }

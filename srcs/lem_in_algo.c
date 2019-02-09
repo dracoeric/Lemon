@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:56:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/06 15:53:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 17:07:45 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static	int		lem_in_count_channel(t_lem_in_data *data, int room_id)
 	return (count);
 }
 
-static	void	lem_in_add_path_flow(t_lem_in_data *data, t_path *path)
+static	void	lem_in_add_path_flow(t_lem_in_data *data, t_path *path,
+					int *j)
 {
 	int	i;
 
@@ -45,9 +46,11 @@ static	void	lem_in_add_path_flow(t_lem_in_data *data, t_path *path)
 		lem_in_add_flow(data, (path->path)[i], (path->path)[i + 1]);
 		i++;
 	}
+	*j += 1;
 }
 
-static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
+static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths,
+	int current_num_steps)
 {
 	int		i;
 	t_path	*shortest_path;
@@ -57,15 +60,15 @@ static	int		lem_in_draw_paths(t_lem_in_data *data, int max_paths)
 	i = 0;
 	while (i < max_paths && old_is_better == 0)
 	{
-		shortest_path = lem_in_bfs_path(data);
+		shortest_path = lem_in_bfs_path(data, current_num_steps);
+		lem_in_reset_reached(data);
 		if (shortest_path == 0)
 			max_paths = i;
 		else
-			lem_in_add_path_flow(data, shortest_path);
-		i++;
+			lem_in_add_path_flow(data, shortest_path, &i);
 		lem_in_unload_ants(data, shortest_path);
 		if (i > 1 && shortest_path != 0)
-			old_is_better = lem_in_test_opti(data, i);
+			current_num_steps = lem_in_test_opti(data, i, &old_is_better);
 		if (shortest_path != 0)
 			lem_in_free_path(shortest_path, 0);
 	}
@@ -86,7 +89,7 @@ static	int		lem_in_hook(void *arg)
 	data = (t_lem_in_data *)arg;
 	if (data->max_paths > 0)
 	{
-		ret = lem_in_draw_paths(data, data->max_paths);
+		ret = lem_in_draw_paths(data, data->max_paths, 1000);
 		if (ret == -1)
 		{
 			lem_in_free_data(&data);
@@ -122,7 +125,7 @@ int				lem_in_algo(t_lem_in_data *data)
 		mlx_loop(data->mlx_ptr);
 	}
 	else if (data->max_paths == 0
-		|| lem_in_draw_paths(data, data->max_paths) == -1)
+		|| lem_in_draw_paths(data, data->max_paths, 1000) == -1)
 		return (-1);
 	return (0);
 }
