@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 15:19:51 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 19:07:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/09 17:48:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static	int		visu_match_ant(char *old, char *ant, int i)
 		i++;
 		j++;
 	}
-	if (ant[j] == '\0')
+	if (ant[j] == '\0' && old[i] == '-')
 		return (1);
 	return (0);
 }

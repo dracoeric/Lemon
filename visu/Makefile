@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/08 19:45:25 by erli             ###   ########.fr        #
+#    Updated: 2019/02/09 17:56:16 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -33,7 +33,7 @@ SRCS		=		main.c				visu_parse.c		visu_get_options.c		\
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
-CC			=		gcc -g -Ofast -fsanitize=address
+CC			=		gcc -g
 
 CFLAG		=		-Wall -Werror -Wextra
 
