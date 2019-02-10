@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 16:02:12 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 19:51:27 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:30:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id,
 	int		ret;
 
 	if (((data->matrix)[origin][room_id] & 1) != 1)
-	{
-		ft_printf("ant = %d, orig = %s, dest = %s\n", ant_id, data->anthill[origin].name, data->anthill[room_id].name);
 		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
-	}
 	if (!(elem = (t_ant *)malloc(sizeof(t_ant))))
 		return (ft_msg_int(2, "Failed malloc int add ant\n", -2));
 	elem->id = ant_id;
@@ -86,10 +83,7 @@ static	int		visu_add_ant(t_visu_data *data, int ant_id, int room_id,
 static	int		visu_move_ant(t_visu_data *data, t_ant *ant, int room_id)
 {
 	if (((data->matrix)[ant->location][room_id] & 1) != 1)
-	{
-		ft_printf("ant = %d, orig = %s, dest = %s\n", ant->id, data->anthill[ant->location].name, data->anthill[room_id].name);
 		return (ft_msg_int(2, "Illegal move, tunnel does not exist\n", -1));
-	}
 	if (ant->moved == 1)
 		return (ft_msg_int(2, "Can't move ant more than once/turn.\n", -1));
 	visu_manage_pheromon(data, ant->id, ant->location, room_id);

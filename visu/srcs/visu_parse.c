@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 10:33:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:26:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static	int			visu_parse_line(char *line, t_visu_data *data,\
 	if (ft_strlen(line) == 0)
 		return (2);
 	if (visu_fill_file(line, file) < 0)
-		return (-1);
+		return (-2);
 	if (line[0] != '#')
 	{
 		if (data->n_ant == 0)
@@ -67,6 +67,8 @@ static	void		visu_delete_last_entry_file(t_file **file, char *line)
 
 	len = ft_strlen(line);
 	tmp = *file;
+	if (tmp == 0)
+		return ;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	i = 0;
@@ -114,6 +116,8 @@ t_visu_data			*visu_parse(int argc, char **argv)
 
 	tr = 1;
 	data = visu_init_data();
+	if (data == 0)
+		return (0);
 	if (argc > 1)
 		tr = visu_get_options(argc, argv, data);
 	if (tr > 0)

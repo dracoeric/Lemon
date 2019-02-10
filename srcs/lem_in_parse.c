@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/09 16:54:26 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:47:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				lem_in_parse_line(char *line, t_lem_in_data *data,\
 
 	tr = 1;
 	if (lem_in_fill_file(line, file) < 0)
-		return (-1);
+		return (-2);
 	if (line[0] != '#')
 	{
 		if (data->n_ant == 0)
@@ -67,6 +67,8 @@ void			lem_in_delete_last_entry_file(t_file **file, char *line)
 
 	len = ft_strlen(line);
 	tmp = *file;
+	if (tmp == 0)
+		return ;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	i = 0;
@@ -103,7 +105,7 @@ int				lem_in_read(t_lem_in_data *data)
 	if (tr < 0)
 		return (ft_msg_int(2, "Abort, failed gnl", -1));
 	if (tr2 == -2)
-		return (-1);
+		return (-2);
 	return (1);
 }
 

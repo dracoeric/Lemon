@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 13:58:57 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 19:49:18 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:30:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int				main(int argc, char **argv)
 	t_visu_data *data;
 
 	data = NULL;
-	data = visu_parse(argc, argv);
+	if (!(data = visu_parse(argc, argv)))
+		return (0);
 	visu_remap(data);
 	if (visu_init_visu(data) < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 19:44:54 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:29:14 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
 
 	nbuff = 0;
 	if (!(new = (t_parse *)malloc(sizeof(t_parse) * 1)))
-		return (ft_msg_int(2, "Abort, failed malloc rparse", -1));
+		return (ft_msg_int(2, "Abort, failed malloc rparse", -2));
 	len = ft_strlen(line);
 	new->name = visu_parse_get_rooms_ptr(file, len, &nbuff);
 	new->n_buff = nbuff;

@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:11:04 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/10 17:48:41 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	lem_in_create_matrix(t_lem_in_data *data)
 
 	if (!(data->matrix = (char **)malloc(sizeof(char *) * (data->n_room + 1))))
 		return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
-	if (!(data->matrix_old = (char **)malloc(sizeof(char *)\
+	if (!(data->matrix_old = (char **)malloc(sizeof(char *)	\
 					* (data->n_room + 1))))
 		return (ft_msg_int(2, "Abort, failed malloc matrix", -2));
 	i = 0;

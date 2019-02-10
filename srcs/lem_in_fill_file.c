@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:39:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:12:02 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/10 17:45:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		lem_in_fill_file_create_new(char *line, t_file *tmp,\
 	char	*newbuff;
 
 	if (!(*new = (t_file *)malloc(sizeof(t_file) * 1)))
-		return (ft_msg_int(2, "Abort, failed malloc file", -1));
+		return (ft_msg_int(2, "Abort, failed malloc file", -2));
 	if (!(newbuff = (char *)malloc(sizeof(char) * (B_SIZE + 1))))
 	{
 		free(*new);
 		*new = NULL;
-		return (ft_msg_int(2, "Abort, failed malloc buff_file", -1));
+		return (ft_msg_int(2, "Abort, failed malloc buff_file", -2));
 	}
 	ft_bzero(newbuff, B_SIZE + 1);
 	(*new)->next = NULL;
@@ -57,7 +57,7 @@ int		lem_in_fill_file(char *line, t_file **file)
 	if (tmp == NULL || (tmp->size + len + 1) > B_SIZE)
 	{
 		if (lem_in_fill_file_create_new(line, tmp, &new, len) < 0)
-			return (-1);
+			return (-2);
 		if (tmp == NULL)
 			*file = new;
 	}

@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:39:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/06 18:48:46 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:26:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static	int		visu_fill_file_create_new(char *line, t_file *tmp,\
 	char	*newbuff;
 
 	if (!(*new = (t_file *)malloc(sizeof(t_file) * 1)))
-		return (ft_msg_int(2, "Abort, failed malloc file", -1));
+		return (ft_msg_int(2, "Abort, failed malloc file", -2));
 	if (!(newbuff = (char *)malloc(sizeof(char) * (B_SIZE + 1))))
 	{
 		free(*new);
 		*new = NULL;
-		return (ft_msg_int(2, "Abort, failed malloc buff_file", -1));
+		return (ft_msg_int(2, "Abort, failed malloc buff_file", -2));
 	}
 	ft_bzero(newbuff, B_SIZE + 1);
 	(*new)->next = NULL;

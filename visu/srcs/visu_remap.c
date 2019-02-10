@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:43:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/08 18:38:01 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/10 17:10:14 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			visu_remap(t_visu_data *data)
 	int i;
 	int	room_per_line;
 
-	if (!VI_OPT_COORD(data->options))
+	if (data != 0 && !VI_OPT_COORD(data->options))
 	{
 		i = 0;
 		while (i < data->n_room)
@@ -65,7 +65,7 @@ void			visu_remap(t_visu_data *data)
 		data->min_x = 0;
 		data->min_y = 0;
 	}
-	else
+	else if (data != 0)
 	{
 		room_per_line = visu_sqrt(data->n_room);
 		data->min_x = 0;
