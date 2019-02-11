@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 17:01:29 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:16:31 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,10 @@ int				lem_in_read(t_lem_in_data *data)
 	return (1);
 }
 
-t_lem_in_data	*lem_in_parse(int argc, char **argv)
+t_lem_in_data	*lem_in_parse(int argc, char **argv, int tr)
 {
 	t_lem_in_data	*data;
-	int				tr;
 
-	tr = 1;
 	if (!(data = (t_lem_in_data *)malloc(sizeof(t_lem_in_data) * 1)))
 		return (ft_msg_ptr(2, "Abort, failed malloc\n", 0));
 	data->n_ant = 0;

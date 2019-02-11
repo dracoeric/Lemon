@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 13:58:57 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 14:57:24 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:16:33 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	t_lem_in_data *data;
 
 	data = NULL;
-	data = lem_in_parse(argc, argv);
+	data = lem_in_parse(argc, argv, 1);
 	if (lem_in_init_reached(data) >= 0)
 		lem_in_manage_output(data);
 	if (data == 0 || lem_in_algo(data) == -1)
