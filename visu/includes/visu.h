@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:40:35 by erli              #+#    #+#             */
-/*   Updated: 2019/02/10 17:16:41 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 17:24:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ void			visu_print_data(t_visu_data *data);
 int				visu_get_instructions(t_visu_data *data);
 int				visu_rec_search(t_room *anthill, char *name, int i, int j);
 int				visu_do_instructions(t_visu_data *data, char *line);
-int				visu_reverse_instruction(t_visu_data *data, int ant_id, int orig,
-					int dest);
+int				visu_reverse_instruction(t_visu_data *data, int ant_id,
+					int orig, int dest);
 int				visu_manage_ants(t_visu_data *data, char *line, int ant_id,
 					int len);
 void			visu_remap(t_visu_data *data);

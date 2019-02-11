@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 17:07:49 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:23:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,26 +120,28 @@ static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
 int				visu_parse_get_rooms(char *l, t_visu_data *data,
 		t_parse **rooms, t_file *file)
 {
-		int i;
-		int tr;
+	int i;
+	int tr;
 
-		tr = l[0] == 'L' || l[0] == '-' ? 0 : 1;
-		i = 1;
-		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && l[i] != '-')
-			i++;
-		tr = l[i] != ' ' ? 0 : tr;
-		i = tr == 1 ? i + 1 : i;
-		tr = l[i] == ' ' ? 0 : tr;
-		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
-			i++;
-		tr = l[i] != ' ' ? 0 : tr;
-		i = tr == 1 ? i + 1 : i;
-		tr = l[i] == ' ' ? 0 : tr;
-		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
-			i++;
-		if (tr == 1 && l[i] != '\0')
-			tr = 0;
-		if (tr == 1)
-			tr = visu_parse_get_rooms_create(l, data, rooms, file);
-		return (tr);
+	tr = l[0] == 'L' || l[0] == '-' ? 0 : 1;
+	i = 1;
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && l[i] != '-')
+		i++;
+	tr = l[i] != ' ' ? 0 : tr;
+	i = tr == 1 ? i + 1 : i;
+	tr = l[i] == ' ' ? 0 : tr;
+	while (tr == 1 && l[i] != '\0' && l[i] != ' '
+		&& (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+		i++;
+	tr = l[i] != ' ' ? 0 : tr;
+	i = tr == 1 ? i + 1 : i;
+	tr = l[i] == ' ' ? 0 : tr;
+	while (tr == 1 && l[i] != '\0' && l[i] != ' '
+		&& (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+		i++;
+	if (tr == 1 && l[i] != '\0')
+		tr = 0;
+	if (tr == 1)
+		tr = visu_parse_get_rooms_create(l, data, rooms, file);
+	return (tr);
 }

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:37:44 by erli              #+#    #+#             */
-/*   Updated: 2019/02/11 17:05:26 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:21:52 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ static	int		visu_nb_is_int(int nb, char *str, int i, int sgn)
 	return (1);
 }
 
-static	int		visu_get_coord(char *str, int *coord, int *i)
+static	int		visu_get_coord(char *str, int *coord, int *i, int nb)
 {
 	int	sgn;
-	int	nb;
 	int	pow;
 
 	sgn = 1;
-	nb = 0;
 	pow = 1;
 	while (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\r'
 			|| str[*i] == '\v' || str[*i] == '\f')
@@ -57,6 +55,7 @@ int				visu_parse_edit_new_room(char *line, t_visu_data *data,
 		t_parse *new, int len)
 {
 	int	coord;
+
 	if (data->start == 1 && data->end == 1)
 		return (ft_msg_int(2, "Abort, no room after ##start or ##end.\n", -1));
 	new->state = data->start == 1 ? 1 : 0;
@@ -71,10 +70,10 @@ int				visu_parse_edit_new_room(char *line, t_visu_data *data,
 	len++;
 	if (!VI_OPT_COORD(data->options))
 	{
-		if (visu_get_coord(line, &coord, &len) < 0)
+		if (visu_get_coord(line, &coord, &len, 0) < 0)
 			return (-1);
 		new->x = coord;
-		if (visu_get_coord(line, &coord, &len) < 0)
+		if (visu_get_coord(line, &coord, &len, 0) < 0)
 			return (-1);
 		new->y = coord;
 	}

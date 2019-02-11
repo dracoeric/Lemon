@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 16:46:33 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:22:09 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	visu_parse_get_ants(char *line, t_visu_data *data)
 	int	wspace;
 
 	i = 0;
-	while (line[i] != '\0' && (line[i] == ' ' || line[i] == '\t' || line[i] == '\v'))
+	while (line[i] != '\0' && (line[i] == ' ' || line[i] == '\t'
+			|| line[i] == '\v'))
 		i++;
 	wspace = i;
 	if (line[0] != '+' && ft_isdigit(line[0]) == 0)
