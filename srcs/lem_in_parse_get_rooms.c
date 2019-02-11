@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 16:43:36 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:17:35 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		lem_in_parse_get_rooms_place_room(t_parse **rooms, t_parse *new)
 	return (1);
 }
 
-int		lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data,\
+int		lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data,
 		t_parse **rooms, t_file *file)
 {
 	t_parse	*new;
@@ -112,7 +112,7 @@ int		lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data,\
 	return (1);
 }
 
-int		lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms,\
+int		lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms,
 		t_file *file)
 {
 	int	i;
@@ -125,12 +125,14 @@ int		lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms,\
 	tr = l[i] != ' ' ? 0 : tr;
 	i = tr == 1 ? i + 1 : i;
 	tr = l[i] == ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1
+			|| l[i] == '-'))
 		i++;
 	tr = l[i] != ' ' ? 0 : tr;
 	i = tr == 1 ? i + 1 : i;
 	tr = l[i] == ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1
+			|| l[i] == '-'))
 		i++;
 	if (tr == 1 && l[i] != '\0')
 		tr = 0;
