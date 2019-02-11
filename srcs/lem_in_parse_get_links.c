@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:13:08 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:20:32 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 10:57:18 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	lem_in_parse_get_links(char *line, t_lem_in_data *data, int tr1, int tr2)
 	j = 0;
 	while (data->anthill[j] != NULL && (tr1 < 0 || tr2 < 0))
 	{
-		if (ft_strncmp(line, data->anthill[j], b) == 0)
+		if (ft_strncmp(line, data->anthill[j], b) == 0
+			&& data->anthill[j][b] == '\0')
 			tr1 = j;
 		if (ft_strcmp(line + i, data->anthill[j]) == 0)
 			tr2 = j;

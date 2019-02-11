@@ -6,12 +6,13 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 13:58:57 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:42:27 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 14:57:24 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -19,9 +20,8 @@ int	main(int argc, char **argv)
 
 	data = NULL;
 	data = lem_in_parse(argc, argv);
-	if (lem_in_init_reached(data) < 0)
-		return (0);
-	lem_in_manage_output(data);
+	if (lem_in_init_reached(data) >= 0)
+		lem_in_manage_output(data);
 	if (data == 0 || lem_in_algo(data) == -1)
 	{
 		write(1, "Error\n", 6);

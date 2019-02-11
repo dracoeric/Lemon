@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:47:04 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 15:12:58 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				lem_in_parse_get_other(char *line, t_lem_in_data *data,\
 	if (tr == 0 && data->endroom == 1)
 		tr = lem_in_parse_get_links(line, data, -1, -1);
 	if (tr == 0)
-		return (ft_msg_int(2, "Abort, not a pipe, not a room", -1));
+		return (ft_msg_int(2, "Abort, not a pipe, not a room\n", -1));
 	return (tr);
 }
 
@@ -52,7 +52,7 @@ int				lem_in_parse_line(char *line, t_lem_in_data *data,\
 		else if (ft_strcmp(line, "##end") == 0)
 			data->end = data->end == -1 ? 1 : -2;
 		if (data->start == -2 || data->end == -2)
-			return (ft_msg_int(2, "Abort, double start or end input", -1));
+			return (ft_msg_int(2, "Abort, double start or end input\n", -1));
 	}
 	if (tr < 0)
 		return (tr);
@@ -103,7 +103,7 @@ int				lem_in_read(t_lem_in_data *data)
 	data->file = file;
 	lem_in_free_rooms(&rooms);
 	if (tr < 0)
-		return (ft_msg_int(2, "Abort, failed gnl", -1));
+		return (ft_msg_int(2, "Abort, failed gnl\n", -1));
 	if (tr2 == -2)
 		return (-2);
 	return (1);
@@ -128,11 +128,12 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 	data->matrix = NULL;
 	data->matrix_old = NULL;
 	data->reached = NULL;
+	data->file = NULL;
 	if (argc > 1)
 		tr = lem_in_get_options(argc, argv, data);
 	if (tr > 0)
 		tr = lem_in_read(data);
-	if (tr < 0)
+	if (tr < 0 || data->anthill == NULL)
 		lem_in_free_data(&data);
 	return (data);
 }

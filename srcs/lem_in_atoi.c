@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:04:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/01 18:42:06 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 14:19:22 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	lem_in_atoi(char *str, int *d)
 	coeff = 1;
 	if (str == NULL)
 		return (0);
-	while (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != ' ' && str[i] != '\t' && str[i] != '\v')
 	{
 		i++;
 	}

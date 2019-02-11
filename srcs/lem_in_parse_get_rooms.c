@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:47:53 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 13:52:02 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		lem_in_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,\
 	if (*tr == 0 && new->size == (*tmp)->size)
 	{
 		free(new);
-		return (ft_msg_int(2, "Abort, 2 rooms with same name", -1));
+		return (ft_msg_int(2, "Abort, 2 rooms with same name\n", -1));
 	}
 	else if (*tr == 0 && new->size > (*tmp)->size)
 	{
@@ -98,20 +98,13 @@ int		lem_in_parse_get_rooms_create(char *line, t_lem_in_data *data,\
 
 	nbuff = 0;
 	if (!(new = (t_parse *)malloc(sizeof(t_parse) * 1)))
-		return (ft_msg_int(2, "Abort, failed malloc rparse", -1));
+		return (ft_msg_int(2, "Abort, failed malloc rparse\n", -1));
 	len = ft_strlen(line);
 	new->name = lem_in_parse_get_rooms_ptr(file, len, &nbuff);
 	new->n_buff = nbuff;
 	new->next = NULL;
-	new->state = data->start == 1 ? 1 : 0;
-	new->state = data->end == 1 ? 2 : new->state;
-	data->start = data->start == 1 ? 2 : data->start;
-	data->end = data->end == 1 ? 2 : data->end;
-	data->n_room = data->n_room + 1;
-	len = 1;
-	while (line[len] != ' ')
-		len++;
-	new->size = len;
+	if (lem_in_parse_edit_new_room(line, data, new, len) < 0)
+		return (ft_msg_int(2, "Abort, invalid coordinates\n", -1));
 	if (*rooms == NULL)
 		*rooms = new;
 	else
@@ -125,21 +118,19 @@ int		lem_in_parse_get_rooms(char *l, t_lem_in_data *data, t_parse **rooms,\
 	int	i;
 	int	tr;
 
-	tr = 1;
+	tr = l[0] == 'L' || l[0] == '-' ? 0 : 1;
 	i = 1;
-	while (l[i] != '\0' && l[i] != ' ')
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && l[i] != '-')
 		i++;
 	tr = l[i] != ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)
+	i = tr == 1 ? i + 1 : i;
+	tr = l[i] == ' ' ? 0 : tr;
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
 		i++;
 	tr = l[i] != ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
+	i = tr == 1 ? i + 1 : i;
+	tr = l[i] == ' ' ? 0 : tr;
+	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
 		i++;
 	if (tr == 1 && l[i] != '\0')
 		tr = 0;

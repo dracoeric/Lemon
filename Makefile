@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/09 17:06:31 by erli             ###   ########.fr        #
+#    Updated: 2019/02/11 13:17:16 by pmasson          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -29,7 +29,7 @@ SRCS		=		main.c				lem_in_add_flow.c		lem_in_algo.c		\
 					lem_in_print_file.c	lem_in_close.c			lem_in_key.c		\
 					lem_in_draw_grad.c	lem_in_unload_ants.c						\
 					lem_in_manage_output.c				lem_in_init_reached.c		\
-					lem_in_reset_reached.c											\
+					lem_in_reset_reached.c	lem_in_parse_edit_new_room.c			\
 					mlx_line_put.c		mlx_str_to_colour.c	
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:37:55 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:44:35 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 14:33:05 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ void	lem_in_free_data(t_lem_in_data **data)
 	{
 		if ((*data)->file != NULL)
 			lem_in_free_file(&(*data)->file);
-		lem_in_free_tabchar((*data)->anthill);
-		lem_in_free_tabchar((*data)->matrix);
-		lem_in_free_tabchar((*data)->matrix_old);
+		if ((*data)->anthill != NULL)
+			lem_in_free_tabchar((*data)->anthill);
+		if ((*data)->matrix != NULL)
+			lem_in_free_tabchar((*data)->matrix);
+		if ((*data)->matrix_old != NULL)
+			lem_in_free_tabchar((*data)->matrix_old);
 		if ((*data)->reached != 0)
 			free((*data)->reached);
 		if ((*data)->win_ptr != 0)
