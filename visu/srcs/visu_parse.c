@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:26:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 17:04:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static	int			visu_parse_line(char *line, t_visu_data *data,\
 			tr = visu_parse_get_ants(line, data);
 		else
 			tr = visu_parse_get_other(line, data, rooms, *file);
+		ft_printf("tr pare get other = %d\n", tr);
 	}
 	else
 	{
@@ -104,7 +105,7 @@ static	int			visu_read(t_visu_data *data)
 	visu_free_parse(&rooms);
 	if (tr < 0)
 		return (ft_msg_int(2, "Abort, failed gnl", -1));
-	if (tr2 == -2)
+	if (tr2 < 0)
 		return (-1);
 	return (1);
 }

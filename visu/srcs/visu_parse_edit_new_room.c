@@ -6,20 +6,19 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 19:37:44 by erli              #+#    #+#             */
-/*   Updated: 2019/02/07 11:32:20 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 16:30:35 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-static	int		visu_nb_is_int(int nb, char *str, int *i, int sgn)
+static	int		visu_nb_is_int(int nb, char *str, int i, int sgn)
 {
-	if (nb > 214748364 || (nb == 214748364 && (str[*i] > '8'
-		|| (str[*i] == '8' && sgn == 1))))
+	if (nb > 214748364 || (nb == 214748364 && (str[i] > '8'
+		|| (str[i] == '8' && sgn == 1))))
 		return (ft_msg_int(2, "Invalid coordinates\n", -1));
-	nb = (nb * 10) + (int)str[*i] - 48;
-	*i += 1;
-	if (str[*i] >= '0' && str[*i] <= '9')
+	i += 1;
+	if (str[i] >= '0' && str[i] <= '9')
 		return (ft_msg_int(2, "Invalid coordinates\n", -1));
 	return (1);
 }
@@ -42,7 +41,7 @@ static	int		visu_get_coord(char *str, int *coord, int *i)
 		return (-1);
 	while (ft_isdigit(str[*i]) == 1)
 	{
-		if (pow == 9 && visu_nb_is_int(nb, str, i, sgn) < 0)
+		if (pow == 10 && visu_nb_is_int(nb, str, *i, sgn) < 0)
 			return (-1);
 		nb = (10 * nb) + str[*i] - '0';
 		pow = (nb != 0 ? pow + 1 : pow);

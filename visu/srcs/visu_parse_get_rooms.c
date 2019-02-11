@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:29:14 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 17:02:56 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static	int		visu_parse_get_rooms_place_room(t_visu_data *data,
 	int		tr;
 
 	if (visu_check_room_coord(data, *rooms, new) == -1)
-		return (-1);
+		return (ft_msg_int(2, "Room with same coordinates\n", -1));
 	tr = 1;
 	tmp = *rooms;
 	tmp2 = NULL;

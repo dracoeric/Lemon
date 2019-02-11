@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:53:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/08 18:27:22 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 16:58:11 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			visu_create_anthill_matrix(t_visu_data *data, t_parse *rooms)
 	int		i;
 	t_parse	*tmp;
 
+	ft_printf("ici\n");
 	i = 0;
 	data->endroom = 1;
 	if (data->start != 2 || data->end != 2)
