@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 14:17:58 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 16:46:43 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	lem_in_parse_get_ants(char *line, t_lem_in_data *data)
 	wspace = i;
 	if (line[i] != '+' && ft_isdigit(line[i]) == 0)
 		return (ft_msg_int(2, "Abort, wrong input (nb ants)\n", -1));
+	if (line[i] == '+')
+		i++;
 	while (line[i] != '\0' && ft_isdigit(line[i]) == 1)
 		i++;
 	if (line[i] == '\0' || line[i] == ' ' || line[i] == '\t' || line[i] == '\v')

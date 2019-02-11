@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:13:12 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 15:12:58 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 17:01:29 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_lem_in_data	*lem_in_parse(int argc, char **argv)
 	data->matrix_old = NULL;
 	data->reached = NULL;
 	data->file = NULL;
+	data->win_ptr = NULL;
 	if (argc > 1)
 		tr = lem_in_get_options(argc, argv, data);
 	if (tr > 0)

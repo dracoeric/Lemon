@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 16:13:08 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/07 11:44:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 16:38:06 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int			visu_parse_get_links(char *line, t_visu_data *data, int tr1,
 	j = 0;
 	while (j < data->n_room && (tr1 < 0 || tr2 < 0))
 	{
-		if (ft_strncmp(line, data->anthill[j].name, b) == 0)
+		if (ft_strncmp(line, data->anthill[j].name, b) == 0
+			&& data->anthill[j].name[b] == '\0')
 			tr1 = j;
 		if (ft_strcmp(line + i, data->anthill[j].name) == 0)
 			tr2 = j;

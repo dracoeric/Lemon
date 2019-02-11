@@ -6,20 +6,19 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 12:59:21 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/11 15:12:56 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/11 16:59:57 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-static  int     parse_nb_is_int(int nb, char *str, int *i, int sgn)
+#include <stdio.h>
+static  int     parse_nb_is_int(int nb, char *str, int i, int sgn)
 {
-	if (nb > 214748364 || (nb == 214748364 && (str[*i] > '8'
-					|| (str[*i] == '8' && sgn == 1))))
+	if (nb > 214748364 || (nb == 214748364 && (str[i] > '8'
+					|| (str[i] == '8' && sgn == 1))))
 		return (-1);
-	nb = (nb * 10) + (int)str[*i] - 48;
-	*i += 1;
-	if (str[*i] >= '0' && str[*i] <= '9')
+	i += 1;
+	if (str[i] >= '0' && str[i] <= '9')
 		return (-1);
 	return (1);
 }
@@ -42,7 +41,7 @@ static  int     parse_get_coord(char *str, int *coord, int *i)
 		return (-1);
 	while (ft_isdigit(str[*i]) == 1)
 	{
-		if (pow == 9 && parse_nb_is_int(nb, str, i, sgn) < 0)
+		if (pow == 10 && parse_nb_is_int(nb, str, *i, sgn) < 0)
 			return (-1);
 		nb = (10 * nb) + str[*i] - '0';
 		pow = (nb != 0 ? pow + 1 : pow);

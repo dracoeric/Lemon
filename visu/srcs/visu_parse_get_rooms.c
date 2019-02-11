@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 11:24:01 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/10 17:29:14 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 17:07:49 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	char	*visu_parse_get_rooms_ptr(t_file *file, int len, int *nbuff)
 }
 
 static	int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,
-					t_parse *new, int *tr)
+		t_parse *new, int *tr)
 {
 	int min;
 
@@ -62,14 +62,14 @@ static	int		visu_parse_get_rooms_place_room2(t_parse **tmp, t_parse **tmp2,
 }
 
 static	int		visu_parse_get_rooms_place_room(t_visu_data *data,
-					t_parse **rooms, t_parse *new)
+		t_parse **rooms, t_parse *new)
 {
 	t_parse	*tmp;
 	t_parse	*tmp2;
 	int		tr;
 
 	if (visu_check_room_coord(data, *rooms, new) == -1)
-		return (-1);
+		return (ft_msg_int(2, "Abort, same room coordinates\n", -1));
 	tr = 1;
 	tmp = *rooms;
 	tmp2 = NULL;
@@ -92,7 +92,7 @@ static	int		visu_parse_get_rooms_place_room(t_visu_data *data,
 }
 
 static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
-					t_parse **rooms, t_file *file)
+		t_parse **rooms, t_file *file)
 {
 	t_parse	*new;
 	int		len;
@@ -118,30 +118,28 @@ static	int		visu_parse_get_rooms_create(char *line, t_visu_data *data,
 }
 
 int				visu_parse_get_rooms(char *l, t_visu_data *data,
-					t_parse **rooms, t_file *file)
+		t_parse **rooms, t_file *file)
 {
-	int	i;
-	int	tr;
+		int i;
+		int tr;
 
-	tr = 1;
-	i = 1;
-	while (l[i] != '\0' && l[i] != ' ')
-		i++;
-	tr = l[i] != ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)
-		i++;
-	tr = l[i] != ' ' ? 0 : tr;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] != ' ' && ft_isdigit(l[i]) == 1)
-		i++;
-	while (tr == 1 && l[i] != '\0' && l[i] == ' ')
-		i++;
-	if (tr == 1 && l[i] != '\0')
-		tr = 0;
-	if (tr == 1)
-		tr = visu_parse_get_rooms_create(l, data, rooms, file);
-	return (tr);
+		tr = l[0] == 'L' || l[0] == '-' ? 0 : 1;
+		i = 1;
+		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && l[i] != '-')
+			i++;
+		tr = l[i] != ' ' ? 0 : tr;
+		i = tr == 1 ? i + 1 : i;
+		tr = l[i] == ' ' ? 0 : tr;
+		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+			i++;
+		tr = l[i] != ' ' ? 0 : tr;
+		i = tr == 1 ? i + 1 : i;
+		tr = l[i] == ' ' ? 0 : tr;
+		while (tr == 1 && l[i] != '\0' && l[i] != ' ' && (ft_isdigit(l[i]) == 1 || l[i] == '-'))
+			i++;
+		if (tr == 1 && l[i] != '\0')
+			tr = 0;
+		if (tr == 1)
+			tr = visu_parse_get_rooms_create(l, data, rooms, file);
+		return (tr);
 }

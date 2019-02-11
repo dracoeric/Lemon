@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:50:11 by erli              #+#    #+#             */
-/*   Updated: 2019/02/10 17:26:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/11 16:55:09 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_visu_data			*visu_init_data(void)
 	data->max_y = -2147483648;
 	data->options = 0;
 	data->play_param = 0;
+	data->file = NULL;
 	data->anthill = NULL;
 	data->matrix = NULL;
 	data->ants = NULL;
